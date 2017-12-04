@@ -30,3 +30,4 @@ and possibilities(Unit testing) which make it a better choice when we build up a
 scratch. However, template driven forms are simpler and are best to use when we migrating an 
 Angular 1 application into Angular. Also by being synchronous, reactive forms allow a better control
 over the inputs.
+
