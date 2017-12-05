@@ -1,35 +1,35 @@
 <mat-card>
-    <form class="employeeContainer">
+    <form  [formGroup]="employeeForm" (ngSubmit)="submitForm(employeeForm.value)">
 
-        <mat-form-field class="full-width">
-            <input matInput placeholder="First Name" [formControl]="firstNameFormControl">
-            <mat-error *ngIf="firstNameFormControl.hasError('required')">
+        <mat-form-field class="employeeContainer">
+            <input matInput placeholder="First Name" [formControl]="employeeForm.controls['firstName']">
+            <mat-error *ngIf="employeeForm.controls['firstName'].hasError('required') && employeeForm.controls['firstName'].touched">
                 First Name is
                 <strong>required</strong>
             </mat-error>
         </mat-form-field>
 
 
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Last Name" [formControl]="lastNameFormControl">
-            <mat-error *ngIf="lastNameFormControl.hasError('required')">
+        <mat-form-field class="employeeContainer">
+            <input matInput placeholder="Last Name" [formControl]="employeeForm.controls['lastName']">
+            <mat-error *ngIf="employeeForm.controls['lastName'].hasError('required') && employeeForm.controls['firstName'].touched">
                 Last Name is
                 <strong>required</strong>
             </mat-error>
         </mat-form-field>
 
-        <mat-form-field class="full-width">
-            <input matInput placeholder="Email" [formControl]="emailFormControl">
+        <mat-form-field class="employeeContainer">
+            <input matInput placeholder="Email" [formControl]="employeeForm.controls['email']">
             <mat-hint>Errors appear instantly!</mat-hint>
-            <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+            <mat-error *ngIf="employeeForm.controls['email'].hasError('email') && !employeeForm.controls['email'].hasError('required')">
                 Please enter a valid email address
             </mat-error>
-            <mat-error *ngIf="emailFormControl.hasError('required')">
+            <mat-error *ngIf="employeeForm.controls['email'].hasError('required') && employeeForm.controls['email'].touched">
                 Email is
                 <strong>required</strong>
             </mat-error>
         </mat-form-field>
-    </form>
-    <button mat-button (click)="onSubmit()" [disabled]="lastNameFormControl.hasError('required') || 
-    firstNameFormControl.hasError('required') || emailFormControl.hasError('email') || emailFormControl.hasError('required')">Submit</button>
+    
+    <button mat-button type="submit" [disabled]="!employeeForm.valid">Submit</button>
+</form>
 </mat-card>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms/src/model';
 
 @Component({
   selector: 'app-new-employee',
@@ -8,26 +9,23 @@ import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/fo
 })
 export class NewEmployeeComponent implements OnInit {
 
-  firstNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
+  employeeForm : FormGroup;
 
-  lastNameFormControl = new FormControl('', [
-    Validators.required,
-  ]);
-
-  emailFormControl = new FormControl('', [
-    Validators.required,
-    Validators.email,
-  ]);
-
-  constructor() { }
+  constructor(fb: FormBuilder) {
+   
+    this.employeeForm = fb.group({
+      'firstName' : [null, Validators.required],
+      'lastName': [null, Validators.required],
+      'email' : [null, Validators.compose([Validators.required, Validators.email])]
+    })   
+   }
 
   ngOnInit() {
   }
 
-  onSubmit(){
-    console.log('Name:' + this.firstNameFormControl.value, 'Last Name:' + this.lastNameFormControl.value, 'Email:' +this.emailFormControl.value);
+  submitForm(value: any):void{
+    console.log('Reactive Form Data: ')
+    console.log(value);
   }
 
 }
