@@ -4,14 +4,23 @@ import { EmployeesMenuComponent } from './employees-menu/employees-menu.componen
 import { ListEmployeeComponent } from './employees-list/list-employee.component';
 import { NewEmployeeComponent } from './employee-new/new-employee.component';
 import { MatTabsModule } from '@angular/material';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatTabsModule
+    MatTabsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    FormsModule, 
+    MatCardModule,
+    MatButtonModule
   ],
   declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
-  
+
   exports: [EmployeesMenuComponent]
 })
 export class EmployeesModule { }
