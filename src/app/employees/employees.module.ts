@@ -7,7 +7,9 @@ import { MatTabsModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+import { EmployeeService } from '../employees/shared/employee.service';
 
 @NgModule({
   imports: [
@@ -15,12 +17,17 @@ import {MatButtonModule} from '@angular/material/button';
     MatTabsModule,
     ReactiveFormsModule,
     MatInputModule,
-    FormsModule, 
+    FormsModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
+
+  providers: [EmployeeService],
+  
   declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
 
   exports: [EmployeesMenuComponent]
+
 })
 export class EmployeesModule { }
