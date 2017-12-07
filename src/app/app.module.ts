@@ -1,8 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { EmployeesModule } from './employees/employees.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatTab} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTabsModule } from '@angular/material';
 import { AppComponent } from './app.component';
 
 
@@ -14,7 +14,7 @@ import { AppComponent } from './app.component';
     BrowserModule,
     EmployeesModule,
     BrowserAnimationsModule,
-    MatTab
+    MatTabsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

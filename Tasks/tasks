@@ -1,0 +1,11 @@
+1- Adding an employee menu component that for now has 2 sub menus
+  -New employee
+  -List Employees
+
+2- Registering a new employee
+3--    Research on reactive forms vs template driven design, which one is better for us?
+4--    Creating the form template using angular material and implementing client validation
+5--    Creating a service that uses add employee API to register an employee
+6--    Writing component method that inject employee service and have a method to register the employee
+
+3- Listing registred employees.
