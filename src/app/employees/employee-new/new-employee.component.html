@@ -2,8 +2,8 @@
     <form  [formGroup]="employeeForm" (ngSubmit)="submitForm(employeeForm.value)">
 
         <mat-form-field class="employeeContainer">
-            <input matInput placeholder="First Name" [formControl]="employeeForm.controls['firstName']">
-            <mat-error *ngIf="employeeForm.controls['firstName'].hasError('required') && employeeForm.controls['firstName'].touched">
+            <input matInput placeholder="First Name" [formControl]="employeeForm.controls['name']">
+            <mat-error *ngIf="employeeForm.controls['name'].hasError('required') && employeeForm.controls['name'].touched">
                 First Name is
                 <strong>required</strong>
             </mat-error>
@@ -11,8 +11,8 @@
 
 
         <mat-form-field class="employeeContainer">
-            <input matInput placeholder="Last Name" [formControl]="employeeForm.controls['lastName']">
-            <mat-error *ngIf="employeeForm.controls['lastName'].hasError('required') && employeeForm.controls['firstName'].touched">
+            <input matInput placeholder="Last Name" [formControl]="employeeForm.controls['family']">
+            <mat-error *ngIf="employeeForm.controls['family'].hasError('required') && employeeForm.controls['family'].touched">
                 Last Name is
                 <strong>required</strong>
             </mat-error>
