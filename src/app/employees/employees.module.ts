@@ -1,13 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-<<<<<<< Updated upstream
-
-@NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
-=======
 import { EmployeesMenuComponent } from './employees-menu/employees-menu.component';
 import { ListEmployeeComponent } from './employees-list/list-employee.component';
 import { NewEmployeeComponent } from './employee-new/new-employee.component';
@@ -36,6 +28,6 @@ import { EmployeeService } from '../employees/shared/employee.service';
   declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
 
   exports: [EmployeesMenuComponent]
->>>>>>> Stashed changes
+
 })
 export class EmployeesModule { }
