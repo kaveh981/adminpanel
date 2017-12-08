@@ -9,3 +9,8 @@
 6--    Writing component method that inject employee service and have a method to register the employee
 
 3- Listing registred employees.
+7-- Employee list should be binf once we change the tab to the employee list
+8-- On every row in the employee list table we should have a delete button to delete the employee
+9-- writing a service to delete the employee the api to delete the employee is http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/:id
+    the is should be replace with the id of employee that need to be deleted
+10-- Handling the delete from EmployeeList component 
