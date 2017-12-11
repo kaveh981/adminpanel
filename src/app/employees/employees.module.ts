@@ -8,6 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from '../employees/shared/employee.service';
 
@@ -20,11 +21,12 @@ import { EmployeeService } from '../employees/shared/employee.service';
     FormsModule,
     MatCardModule,
     MatButtonModule,
+    MatTableModule,
     HttpClientModule
   ],
 
   providers: [EmployeeService],
-  
+
   declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
 
   exports: [EmployeesMenuComponent]
