@@ -18,7 +18,7 @@ export class EmployeeService {
 
   postEmployee(newEmployee: IEmployee) {
     // console.log(JSON.stringify(newEmployee));
-    return this.http.post("http://localhost:3000/employees", newEmployee);
+    return this.http.post("http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees", newEmployee);
   }
 
 }
