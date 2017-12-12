@@ -25,12 +25,18 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
     }
   }
 
+  deleteColum(index){
+    console.log(index);
+    this.employeeService.deleteEmployee(index)
+    .subscribe();
+  }
+
   dataSource: MatTableDataSource<IEmployee>;
 
   constructor(private employeeService: EmployeeService) { }
 
   ngOnInit() {}
 
-  displayedColumns = ['employeeId', 'name', 'family', 'email'];
+  displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete'];
 
 }

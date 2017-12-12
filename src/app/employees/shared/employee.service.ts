@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Response } from '@angular/http';
 import { IEmployee } from './employee.infc';
 import 'rxjs/add/operator/map';
@@ -10,6 +10,8 @@ import { Observable } from 'rxjs/Observable';
 
 export class EmployeeService {
 
+  
+ 
   constructor(private http: HttpClient) { }
 
   employeeList(): Observable<IEmployee[]> {
@@ -19,6 +21,15 @@ export class EmployeeService {
   postEmployee(newEmployee: IEmployee) {
     // console.log(JSON.stringify(newEmployee));
     return this.http.post("http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees", newEmployee);
+  }
+
+  deleteEmployee(index) {
+    console.log(index.employeeId);
+    const httpOptions = { 
+      headers: new HttpHeaders({ "Access-Control-Allow-Methods" : "GET, POST, OPTIONS, PUT, DELETE" }) };
+  
+    // this.headers.add();
+    return this.http.delete<IEmployee>("http://localhost:3000/employees/" + index.employeeId);
   }
 
 }
