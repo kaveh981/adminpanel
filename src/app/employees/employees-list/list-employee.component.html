@@ -7,7 +7,8 @@
     <!-- Position Column -->
     <ng-container matColumnDef="employeeId">
       <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.employeeId}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.employeeId}}</mat-cell>
+      <mat-cell ></mat-cell>
     </ng-container>
 
     <!-- Name Column -->
@@ -28,9 +29,13 @@
       <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
     </ng-container>
 
+    <!-- Delete Colimn-->
+    <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete</mat-header-cell>
+        <mat-cell *matCellDef="let index"> <button mat-button color="warn" (click)="deleteColum(index)">Delete</button></mat-cell>  
+      </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
-
-<u><li *ngFor="let employee of list">{{employee.name}}</li></u>
