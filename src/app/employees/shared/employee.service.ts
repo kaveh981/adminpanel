@@ -24,10 +24,6 @@ export class EmployeeService {
   }
 
   deleteEmployee(employeeId) {
-    console.log(employeeId);
-    const httpOptions = { 
-      headers: new HttpHeaders({ "Access-Control-Allow-Methods" : "GET, POST, OPTIONS, PUT, DELETE" }) 
-    };
     return this.http.delete<IEmployee>(`http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/${employeeId}`);
   }
 
