@@ -23,13 +23,12 @@ export class EmployeeService {
     return this.http.post("http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees", newEmployee);
   }
 
-  deleteEmployee(index) {
-    console.log(index.employeeId);
+  deleteEmployee(employeeId) {
+    console.log(employeeId);
     const httpOptions = { 
-      headers: new HttpHeaders({ "Access-Control-Allow-Methods" : "GET, POST, OPTIONS, PUT, DELETE" }) };
-  
-    // this.headers.add();
-    return this.http.delete<IEmployee>("http://localhost:3000/employees/" + index.employeeId);
+      headers: new HttpHeaders({ "Access-Control-Allow-Methods" : "GET, POST, OPTIONS, PUT, DELETE" }) 
+    };
+    return this.http.delete<IEmployee>(`http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/${employeeId}`);
   }
 
 }
