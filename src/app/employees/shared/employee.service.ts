@@ -10,8 +10,6 @@ import { Observable } from 'rxjs/Observable';
 
 export class EmployeeService {
 
-  
- 
   constructor(private http: HttpClient) { }
 
   employeeList(): Observable<IEmployee[]> {
@@ -20,7 +18,7 @@ export class EmployeeService {
 
   postEmployee(newEmployee: IEmployee) {
     // console.log(JSON.stringify(newEmployee));
-    return this.http.post("http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees", newEmployee);
+    return this.http.post('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', newEmployee);
   }
 
   deleteEmployee(employeeId) {

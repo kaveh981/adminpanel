@@ -32,7 +32,7 @@
     <!-- Delete Colimn-->
     <ng-container matColumnDef="delete">
         <mat-header-cell *matHeaderCellDef> Delete</mat-header-cell>
-        <mat-cell *matCellDef="let index"> <button mat-button color="warn" (click)="deleteColum(index)">Delete</button></mat-cell>  
+        <mat-cell *matCellDef="let index"> <button mat-button color="warn" (click)="deleteColum(index.employeeId)">Delete</button></mat-cell>  
       </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

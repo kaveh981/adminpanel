@@ -1,7 +1,9 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { IEmployee } from '../shared/employee.infc';
 import { EmployeeService } from '../shared/employee.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
+import 'rxjs/add/operator/retry';
 
 @Component({
   selector: 'app-list-employee',
@@ -17,7 +19,7 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
 
   displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete'];
 
-  constructor(private employeeService: EmployeeService) { }
+  constructor(private employeeService: EmployeeService, public dialog: MatDialog) { }
 
   ngOnInit() { }
 
@@ -32,13 +34,22 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
     }
   }
 
-  deleteColum(index) {
-    this.employeeService.deleteEmployee(index)
-      .subscribe(() => { }, () => {
-        const newEmployeeArray = this.dataSource.data.filter(emp => emp.employeeId !== index.employeeId);
-        // console.log(JSON.stringify(arr.filter(emp => { return emp.employeeId !== index.employeeId })));
-        // console.log(JSON.stringify(myNewArr));
-        this.dataSource.data = newEmployeeArray;
-      }, () => { });
+  deleteColum(employeeId) {
+    const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
+      width: '250px',
+      data: { message: 'Are you sure you want to delete this employee?'}
+    });
+
+    dialogRef.afterClosed()
+      .subscribe(result => {
+        if (result) {
+          this.employeeService.deleteEmployee(employeeId)
+            .subscribe(() => {
+                const newEmployeeArray = this.dataSource.data.filter(emp => emp.employeeId !== employeeId);
+                this.dataSource.data = newEmployeeArray;
+              }, () => {}, () => {}
+            );
+        }
+      });
   }
 }
