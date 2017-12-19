@@ -16,3 +16,8 @@
 10-- Handling the delete from EmployeeList component 
 11-- Adding a shared component to handle the pop up messages
 12-- Adding retry provider to observable
+
+4- Authentication
+13-- Adding password and password confirmation to add new employee form
+14-- Updating component and services according to new changes
+
