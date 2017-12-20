@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroupDirective, NgForm, Validators, FormBuilder } from '@angular/forms';
-import { FormGroup } from '@angular/forms/src/model';
+import {
+  FormControl, ValidationErrors,
+  FormGroupDirective, NgForm, Validators, ValidatorFn, FormBuilder, AbstractControl, FormGroup
+} from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { IEmployee } from '../shared/employee.infc';
+import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 
 @Component({
@@ -18,10 +21,14 @@ export class NewEmployeeComponent implements OnInit {
   constructor(fb: FormBuilder, private employeeService: EmployeeService) {
 
     this.employeeForm = fb.group({
-      'name': [null, Validators.required],
-      'family': [null, Validators.required],
-      'email': [null, Validators.compose([Validators.required, Validators.email])]
-    })
+      'name': ['', Validators.required],
+      'family': ['', Validators.required],
+      'email': ['', Validators.compose([Validators.required, Validators.email])],
+      'passwords': fb.group({
+        'password': ['', Validators.required],
+        'passwordConfirmation': ['', Validators.compose([Validators.required, passwordConfirmationMatcher])],
+      })
+    });
   }
 
   ngOnInit(): void {
@@ -29,15 +36,10 @@ export class NewEmployeeComponent implements OnInit {
 
 
   submitForm(value: IEmployee): void {
-    console.log('Reactive Form Data: ')
+    console.log('Reactive Form Data: ');
     console.log(value);
     this.employeeService.postEmployee(value)
       .subscribe();
   }
 
 }
-
-
-
-
-

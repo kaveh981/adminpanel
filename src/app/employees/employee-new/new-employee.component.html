@@ -29,7 +29,31 @@
                 <strong>required</strong>
             </mat-error>
         </mat-form-field>
+        <div [formGroup]="employeeForm.controls['passwords']">
+            <mat-form-field class="employeeContainer">
+                <input type="password" matInput #input minlength="6" placeholder="Password" [formControl]="employeeForm.controls['passwords'].controls['password']">
+                <mat-hint align="end">{{input.value?.length || 0}}/6</mat-hint>
+                <mat-error *ngIf="employeeForm.controls['passwords'].controls['password'].hasError('required') && employeeForm.controls['passwords'].controls['password'].touched">
+                    Password is
+                    <strong>required</strong>
+            </mat-error>
+                <mat-error *ngIf="(employeeForm.controls['passwords'].controls['password'].value).length < 6 && !employeeForm.controls['passwords'].controls['password'].hasError('required')">
+                    Password must be atleast six characters!
+                </mat-error>
+        </mat-form-field>
     
+            <mat-form-field class="employeeContainer">
+                <input type="password" matInput placeholder="passwordConfirmation" [formControl]="employeeForm.controls['passwords'].controls['passwordConfirmation']">
+                <mat-error *ngIf="employeeForm.controls['passwords'].controls['passwordConfirmation'].hasError('required') && employeeForm.controls['passwords'].controls['passwordConfirmation'].touched">
+                    Password is
+                    <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="employeeForm.controls['passwords'].controls['passwordConfirmation'].hasError('nomatch') && !employeeForm.controls['passwords'].controls['passwordConfirmation'].hasError('required')">
+                    Password is not
+                    <strong>matched</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
     <button mat-button type="submit" [disabled]="!employeeForm.valid">Submit</button>
 </form>
 </mat-card>

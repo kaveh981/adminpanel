@@ -4,17 +4,24 @@ import { EmployeesModule } from './employees/employees.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material';
 import { AppComponent } from './app.component';
-
+import { ConfirmationPopupComponent } from './shared-components/confirmation-popup/confirmation-popup.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfirmationPopupComponent
   ],
+  entryComponents: [ConfirmationPopupComponent],
+
   imports: [
     BrowserModule,
     EmployeesModule,
     BrowserAnimationsModule,
-    MatTabsModule
+    MatTabsModule,
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
