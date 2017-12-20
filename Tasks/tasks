@@ -21,3 +21,8 @@
 13-- Adding password and password confirmation to add new employee form
 14-- Updating component and services according to new changes
 
+5- Main menu
+15-- Creating a component called main menu and put it in a folder called menu under the app the component should use 5- Main menu
+     https://valor-software.com/ngx-bootstrap/#/tabs component and having two main menu for now Employees and Customers
+16-- put the employees-menu component under the Employees main menu
+
