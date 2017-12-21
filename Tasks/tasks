@@ -25,4 +25,8 @@
 15-- Creating a component called main menu and put it in a folder called menu under the app the component should use 5- Main menu
      https://valor-software.com/ngx-bootstrap/#/tabs component and having two main menu for now Employees and Customers
 16-- put the employees-menu component under the Employees main menu
-
+17-- read the tab documentation to see how you can access to static tab from component
+18-- put an edit button on the employee list once we click on it should open up a new tab in the main tab
+19-- since the opening a new tab should be handled in list-employees component which is not a direct children of main menu component you should find a way 
+     to access the main menu read here https://angular.io/guide/component-interaction#parent-and-children-communicate-via-a-service
+     
