@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TabsModule } from 'ngx-bootstrap';
+import { MainMenuTabService } from './shared-services/main-menu-tab.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { TabsModule } from 'ngx-bootstrap';
     MatButtonModule,
     TabsModule.forRoot()
   ],
-  providers: [],
+  providers: [MainMenuTabService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
