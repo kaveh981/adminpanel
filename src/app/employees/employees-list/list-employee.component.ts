@@ -4,6 +4,7 @@ import { EmployeeService } from '../shared/employee.service';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
 import 'rxjs/add/operator/retry';
+import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
 
 @Component({
   selector: 'app-list-employee',
@@ -17,11 +18,30 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
 
   dataSource: MatTableDataSource<IEmployee>;
 
-  displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete'];
+  displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete', 'edit'];
 
-  constructor(private employeeService: EmployeeService, public dialog: MatDialog) { }
+  constructor(private employeeService: EmployeeService,
+              public dialog: MatDialog,
+              public mainMenuTab: MainMenuTabService) {
+              
+               }
 
   ngOnInit() { }
+
+  addNewTab(): void {
+    const newTabIndex = this.mainMenuTab.tabs.length + 1;
+    this.mainMenuTab.tabs.push({
+      title: `Dynamic Title ${newTabIndex}`,
+      content: `Dynamic content ${newTabIndex}`,
+      disabled: false,
+      removable: true
+    });
+  }
+
+  removeTabHandler(tab: any): void {
+    this.mainMenuTab.tabs.splice(this.mainMenuTab.tabs.indexOf(tab), 1);
+    console.log('Remove Tab handler');
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
@@ -37,7 +57,7 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
   deleteColum(employeeId) {
     const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
       width: '250px',
-      data: { message: 'Are you sure you want to delete this employee?'}
+      data: { message: 'Are you sure you want to delete this employee?' }
     });
 
     dialogRef.afterClosed()
@@ -45,9 +65,9 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
         if (result) {
           this.employeeService.deleteEmployee(employeeId)
             .subscribe(() => {
-                const newEmployeeArray = this.dataSource.data.filter(emp => emp.employeeId !== employeeId);
-                this.dataSource.data = newEmployeeArray;
-              }, () => {}, () => {}
+              const newEmployeeArray = this.dataSource.data.filter(emp => emp.employeeId !== employeeId);
+              this.dataSource.data = newEmployeeArray;
+            }, () => { }, () => { }
             );
         }
       });
