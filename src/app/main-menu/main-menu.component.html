@@ -11,8 +11,9 @@
          [removable]="tabz.removable"
          (removed)="removeTabHandler(tabz)"
          [customClass]="tabz.customClass">
-      {{tabz?.content}}
+      <div [ngSwitch]="tabz?.content">
+      <app-employees-menu *ngSwitchCase="'employee'"></app-employees-menu>
+    </div>
     </tab>
   </tabset>
 </div>
-<button (click)="Addtab()">Add Tab</button>

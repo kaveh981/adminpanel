@@ -10,13 +10,7 @@ import { MainMenuTabService } from '../shared-services/main-menu-tab.service';
 })
 export class MainMenuComponent implements OnInit {
 
-  @ViewChild('staticTabs') staticTabs: TabsetComponent;
-
-
-  // Addtab() {
-  //   this.staticTabs.tabs.push({heading:'aa'})
-  //   this.staticTabs.addTab({elementRef:'content',heading: 'NewTab',renderer:'rrr'})
-  // }
+  // @ViewChild('staticTabs') staticTabs: TabsetComponent;
 
   constructor(public mainMenuTab: MainMenuTabService) { }
 
