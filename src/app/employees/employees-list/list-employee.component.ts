@@ -36,10 +36,6 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
     });
   }
 
-  removeTabHandler(tab: any): void {
-    this.mainMenuTab.tabs.splice(this.mainMenuTab.tabs.indexOf(tab), 1);
-    console.log('Remove Tab handler');
-  }
 
   ngOnChanges(changes: SimpleChanges) {
     for (const propName in changes) {
