@@ -31,6 +31,9 @@
      to access the main menu read here https://angular.io/guide/component-interaction#parent-and-children-communicate-via-a-service
      
 6- Editing Employee
-7-- When in the employee list we click on an employee a dynamic tab will be open the title of the tab is the name of the employee we clicked on
-    and in the content of the tab we have a form like the add new employee from with the same client validation but filled with the employee data that can be edited and we have a save button
+20-- When in the employee list we click on an employee a dynamic tab will be open the title of the tab is the name of the employee we clicked on
+    and in the content of the tab we have a form like the add new employee from with the same client validation but filled with the employee data that can be edited
+    the api to get and employee with id is:
+    http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/:id 
+    the id should be replaced with the id of employee that we want to be edited and we have a save button
     to save edited employee password update should be in the same tab but in the different section and should have it's own save button
