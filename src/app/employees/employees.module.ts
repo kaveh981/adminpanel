@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from '../employees/shared/employee.service';
+import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
+
 
 @NgModule({
   imports: [
@@ -27,9 +29,9 @@ import { EmployeeService } from '../employees/shared/employee.service';
 
   providers: [EmployeeService],
 
-  declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
+  declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent, EmployeeMenuComponent],
 
-  exports: [EmployeesMenuComponent]
+  exports: [EmployeesMenuComponent, EmployeeMenuComponent]
 
 })
 export class EmployeesModule { }
