@@ -40,8 +40,8 @@
     <!-- Edit Column -->
     <ng-container matColumnDef="edit">
       <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-      <mat-cell *matCellDef="let index">
-        <button mat-button color="warn" (click)="addNewTab()"> Edit </button>
+      <mat-cell *matCellDef="let index, let element">
+        <button mat-button color="warn" (click)="addNewTab(element)"> Edit </button>
       </mat-cell>
     </ng-container>
 

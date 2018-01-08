@@ -21,16 +21,17 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
   displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete', 'edit'];
 
   constructor(private employeeService: EmployeeService,
-              public dialog: MatDialog,
-              public mainMenuTab: MainMenuTabService) {
-               }
+    public dialog: MatDialog,
+    public mainMenuTab: MainMenuTabService) {
+  }
 
   ngOnInit() { }
 
-  addNewTab(): void {
+  addNewTab(element): void {
     this.mainMenuTab.tabs.push({
-      title: `Dynamic Title `,
+      title: element.name,
       content: `employee`,
+      employeeId: element.employeeId,
       disabled: false,
       removable: true
     });

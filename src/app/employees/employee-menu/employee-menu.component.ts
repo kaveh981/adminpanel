@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-employee-menu',
@@ -6,6 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./employee-menu.component.css']
 })
 export class EmployeeMenuComponent implements OnInit {
+
+  @Input()
+  employeeIdFromEmployeeMenu: number;
 
   constructor() { }
 
