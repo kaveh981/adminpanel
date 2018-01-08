@@ -29,7 +29,7 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
 
   addNewTab(element): void {
     this.mainMenuTab.tabs.push({
-      title: element.name,
+      title: element.name + ' ' + element.family,
       content: `employee`,
       employeeId: element.employeeId,
       disabled: false,
