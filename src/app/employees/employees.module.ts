@@ -13,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from '../employees/shared/employee.service';
 import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
-
+import { EmployeeAccessEditComponent } from './employee-access-edit/employee-access-edit.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -26,12 +27,14 @@ import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
     MatButtonModule,
     MatTableModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatGridListModule
   ],
 
   providers: [EmployeeService],
 
-  declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent],
+  declarations: [EmployeesMenuComponent, ListEmployeeComponent,
+    NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent],
 
   exports: [EmployeesMenuComponent, EmployeeMenuComponent]
 

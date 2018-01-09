@@ -10,3 +10,9 @@ export interface UpdateEmployee {
   name: string;
   id: number;
 }
+
+export interface UpdateEmployeeEmail {
+  email: string;
+  password: string;
+  id: number;
+}

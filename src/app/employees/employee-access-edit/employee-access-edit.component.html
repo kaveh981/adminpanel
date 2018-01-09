@@ -1,0 +1,57 @@
+<div style="padding: 20px 20px 20px 20px">
+  <mat-grid-list cols="2" rowHeight="350px">
+    <mat-grid-tile colspan="1">
+      <mat-card class="employeeMatCard">
+        <form [formGroup]="employeeFormEmail" (ngSubmit)="editEmployeeEmail(employeeFormEmail.value)">
+          <mat-card-title>Changing email</mat-card-title>
+
+          <mat-form-field class="employeeContainer">
+            <input matInput placeholder="Email" [formControl]="employeeFormEmail.controls['email']">
+            <mat-hint>Errors appear instantly!</mat-hint>
+            <mat-error *ngIf="employeeFormEmail.controls['email'].hasError('email') && !employeeFormEmail.controls['email'].hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="employeeFormEmail.controls['email'].hasError('required') && employeeFormEmail.controls['email'].touched">
+              Email is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="employeeContainer">
+            <input type="password" matInput #input minlength="6" placeholder="Password" [formControl]="employeeFormEmail.controls['password']">
+            <mat-hint align="end">{{input.value?.length || 0}}/6</mat-hint>
+            <mat-error *ngIf="employeeFormEmail.controls['password'].hasError('required') && employeeFormEmail.controls['password'].touched">
+              Password is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-button type="submit" [disabled]="!employeeFormEmail.valid">Save</button>
+        </form>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1">
+      <mat-card class="employeeMatCard">
+        <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)">
+          <mat-card-title>Changing password</mat-card-title>
+
+          <mat-form-field class="employeeContainer">
+            <input matInput placeholder="First Name" [formControl]="employeeForm.controls['name']">
+            <mat-error *ngIf="employeeForm.controls['name'].hasError('required') && employeeForm.controls['name'].touched">
+              First Name is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="employeeContainer">
+            <input matInput placeholder="Last Name" [formControl]="employeeForm.controls['family']">
+            <mat-error *ngIf="employeeForm.controls['family'].hasError('required') && employeeForm.controls['family'].touched">
+              Last Name is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-button type="submit" [disabled]="!employeeForm.valid">Save</button>
+        </form>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
