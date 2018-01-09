@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from '@angular/http';
-import { IEmployee } from './employee.infc';
-import 'rxjs/add/operator/map';
 import { NewEmployeeComponent } from '../employee-new/new-employee.component';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,8 +13,20 @@ export class EmployeeService {
     return this.http.get<IEmployee[]>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees');
   }
 
+  getEmployeeById(employeeId: number): Observable<IEmployee> {
+    return this.http.get<IEmployee>(`http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/${employeeId}`);
+  }
+
+  updateEmployee(editedEmployee: UpdateEmployee) {
+    return this.http.put('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', editedEmployee);
+  }
+
+  updateEmployeeEmail(editedEmployeeEmail: UpdateEmployeeEmail): Observable<ResponseDetails> {
+    return this.http.put<ResponseDetails>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/email',
+      editedEmployeeEmail);
+  }
+
   postEmployee(newEmployee: IEmployee) {
-    // console.log(JSON.stringify(newEmployee));
     return this.http.post('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', newEmployee);
   }
 

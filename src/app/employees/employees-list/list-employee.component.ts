@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
-import { IEmployee } from '../shared/employee.infc';
 import { EmployeeService } from '../shared/employee.service';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
@@ -21,16 +20,17 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
   displayedColumns = ['employeeId', 'name', 'family', 'email', 'delete', 'edit'];
 
   constructor(private employeeService: EmployeeService,
-              public dialog: MatDialog,
-              public mainMenuTab: MainMenuTabService) {
-               }
+    public dialog: MatDialog,
+    public mainMenuTab: MainMenuTabService) {
+  }
 
   ngOnInit() { }
 
-  addNewTab(): void {
+  addNewTab(element): void {
     this.mainMenuTab.tabs.push({
-      title: `Dynamic Title `,
+      title: element.name + ' ' + element.family,
       content: `employee`,
+      employeeId: element.employeeId,
       disabled: false,
       removable: true
     });

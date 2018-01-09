@@ -1,4 +1,4 @@
-<div (click)="$event.preventDefault()">
+<div>
   <tabset>
       <tab heading="Employees" id="tab1"><app-employees-menu></app-employees-menu></tab>
       <tab heading="Customers">Static content 1</tab>
@@ -12,7 +12,7 @@
          (removed)="removeTabHandler(tabz)"
          [customClass]="tabz.customClass">
       <div [ngSwitch]="tabz?.content">
-      <app-employees-menu *ngSwitchCase="'employee'"></app-employees-menu>
+      <app-employee-menu [employeeIdFromEmployeeMenu]="tabz.employeeId" *ngSwitchCase="'employee'"></app-employee-menu>
     </div>
     </tab>
   </tabset>

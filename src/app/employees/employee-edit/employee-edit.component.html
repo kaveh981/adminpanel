@@ -1,0 +1,24 @@
+<mat-card>
+  <form [formGroup]="employeeForm" (ngSubmit)="editEmployee(employeeForm.value)">
+
+    <mat-card>
+      <mat-form-field class="employeeContainer">
+        <input matInput placeholder="First Name" [formControl]="employeeForm.controls['name']">
+        <mat-error *ngIf="employeeForm.controls['name'].hasError('required') && employeeForm.controls['name'].touched">
+          First Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="employeeContainer">
+        <input matInput placeholder="Last Name" [formControl]="employeeForm.controls['family']">
+        <mat-error *ngIf="employeeForm.controls['family'].hasError('required') && employeeForm.controls['family'].touched">
+          Last Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="!employeeForm.valid">Save</button>
+    </mat-card>
+
+  </form>
+</mat-card>

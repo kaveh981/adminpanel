@@ -8,9 +8,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material';
+import { MatTableModule, MatSnackBarModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from '../employees/shared/employee.service';
+import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
+import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
+import { EmployeeAccessEditComponent } from './employee-access-edit/employee-access-edit.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -22,14 +26,17 @@ import { EmployeeService } from '../employees/shared/employee.service';
     MatCardModule,
     MatButtonModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+    MatGridListModule
   ],
 
   providers: [EmployeeService],
 
-  declarations: [EmployeesMenuComponent, ListEmployeeComponent, NewEmployeeComponent],
+  declarations: [EmployeesMenuComponent, ListEmployeeComponent,
+    NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent],
 
-  exports: [EmployeesMenuComponent]
+  exports: [EmployeesMenuComponent, EmployeeMenuComponent]
 
 })
 export class EmployeesModule { }
