@@ -24,6 +24,9 @@
               Password is
               <strong>required</strong>
             </mat-error>
+            <mat-error *ngIf="(employeeFormEmail.controls['password'].value).length < 6 && !employeeFormEmail.controls['password'].hasError('required')">
+                Password must be atleast six characters!
+            </mat-error>
           </mat-form-field>
           <button mat-button type="submit" [disabled]="!employeeFormEmail.valid">Save</button>
         </form>
