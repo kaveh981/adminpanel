@@ -4,7 +4,6 @@ import {
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
-import { IEmployee, UpdateEmployee } from '../shared/employee.infc';
 import { MatSnackBar } from '@angular/material';
 
 @Component({

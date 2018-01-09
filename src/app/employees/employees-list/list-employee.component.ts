@@ -1,5 +1,4 @@
 import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
-import { IEmployee } from '../shared/employee.infc';
 import { EmployeeService } from '../shared/employee.service';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';

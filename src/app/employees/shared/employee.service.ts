@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Response } from '@angular/http';
-import { IEmployee, UpdateEmployee, UpdateEmployeeEmail } from './employee.infc';
-import 'rxjs/add/operator/map';
 import { NewEmployeeComponent } from '../employee-new/new-employee.component';
 import { Observable } from 'rxjs/Observable';
 

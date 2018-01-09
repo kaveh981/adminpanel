@@ -4,7 +4,6 @@ import {
   FormGroupDirective, NgForm, Validators, ValidatorFn, FormBuilder, AbstractControl, FormGroup
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
-import { IEmployee } from '../shared/employee.infc';
 import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 

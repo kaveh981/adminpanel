@@ -3,7 +3,6 @@ import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
-import { IEmployee, UpdateEmployeeEmail } from '../shared/employee.infc';
 import { MatSnackBar } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
 
