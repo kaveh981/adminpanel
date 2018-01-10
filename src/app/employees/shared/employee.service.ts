@@ -26,6 +26,11 @@ export class EmployeeService {
       editedEmployeeEmail);
   }
 
+  updateEmployeePassword(editedEmployeePassword: UpdateEmployeePassword): Observable<ResponseDetails> {
+    return this.http.put<ResponseDetails>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/password',
+    editedEmployeePassword);
+  }
+
   postEmployee(newEmployee: IEmployee) {
     return this.http.post('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', newEmployee);
   }
