@@ -17,6 +17,12 @@ interface UpdateEmployeeEmail {
     id: number;
 }
 
+interface UpdateEmployeePassword {
+    oldPassword: string;
+    newPassword: string;
+    id: number;
+}
+
 interface ResponseDetails {
     success: boolean;
     message: string;

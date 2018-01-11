@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
+import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 
 @Component({
@@ -17,10 +18,12 @@ export class EmployeeAccessEditComponent implements OnInit {
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
 
-  employeeForm: FormGroup;
+  employeeFormPassword: FormGroup;
   employeeFormEmail: FormGroup;
 
   employeeDetails: IEmployee;
+
+  passwordDetails: UpdateEmployeePassword;
 
   constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService) {
     this.employeeFormEmail = fb.group({
@@ -28,9 +31,12 @@ export class EmployeeAccessEditComponent implements OnInit {
       'password': ['', Validators.required],
       'id': []
     });
-    this.employeeForm = fb.group({
-      'name': ['', Validators.required],
-      'family': ['', Validators.required],
+    this.employeeFormPassword = fb.group({
+      'currentPassword': ['', Validators.required],
+      'passwords': fb.group({
+        'password': ['', Validators.required],
+        'passwordConfirmation': ['', Validators.compose([Validators.required, passwordConfirmationMatcher])],
+      }),
       'id': []
     });
   }
@@ -61,6 +67,24 @@ export class EmployeeAccessEditComponent implements OnInit {
         this.openSnackBar('There is an error! Please try again!');
       }
       );
+  }
+
+  editEmployeePassword(value) {
+    console.log(value);
+    console.log({id : this.employeeIdFromEmployeeMenu , oldPassword : value.currentPassword, newPassword : value.passwords.password} );
+    this.employeeService.updateEmployeePassword(
+      {id : this.employeeIdFromEmployeeMenu , oldPassword : value.currentPassword, newPassword : value.passwords.password})
+    .subscribe(
+    (response) => {
+      if (response.success) {
+        this.openSnackBar('The password has been updated');
+      } else {
+        this.openSnackBar(response.message);
+      }
+    }, () => {
+      this.openSnackBar('There is an error! Please try again!');
+    }
+    );
   }
 
   openSnackBar(message: string) {
