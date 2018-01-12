@@ -34,19 +34,16 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const isVisited = this.visited.checkIn('app-employee-edit');
-    if (!isVisited) {
-      if (this.employeeIdFromEmployeeMenu) {
-        this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
-          .subscribe(data => {
-            this.employeeDetails = data;
-            this.employeeForm.patchValue({
-              name: data.name,
-              family: data.family,
-              id: data.employeeId
-            });
+    if (this.employeeIdFromEmployeeMenu) {
+      this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
+        .subscribe(data => {
+          this.employeeDetails = data;
+          this.employeeForm.patchValue({
+            name: data.name,
+            family: data.family,
+            id: data.employeeId
           });
-      }
+        });
     }
   }
 

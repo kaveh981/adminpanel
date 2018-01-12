@@ -47,7 +47,7 @@ export class EmployeeAccessEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const isVisited = this.visited.checkIn('app-employee-access-edit');
+    const isVisited = this.visited.checkIn(`${this.employeeIdFromEmployeeMenu}-app-employee-access-edit`);
     if (!isVisited) {
       if (this.employeeIdFromEmployeeMenu) {
         this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
