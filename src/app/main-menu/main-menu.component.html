@@ -4,7 +4,7 @@
       <tab heading="Customers">Static content 1</tab>
     <tab *ngFor="let tabz of mainMenuTab.tabs"
          [heading]="tabz.title"
-         [active]="tabz.active"
+         [active]="true"
          (select)="tabz.active = true"
          (deselect)="tabz.active = false"
          [disabled]="tabz.disabled"
