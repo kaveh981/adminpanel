@@ -11,7 +11,6 @@ export class EmployeesMenuComponent implements OnInit {
   tabIndex: number = null;
 
   changeTabEvent(e) {
-
     this.tabIndex = e.index;
   }
 

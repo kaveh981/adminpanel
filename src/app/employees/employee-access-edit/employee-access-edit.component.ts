@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
@@ -14,7 +14,7 @@ import { passwordConfirmationMatcher } from '../shared/custom-validators';
   templateUrl: './employee-access-edit.component.html',
   styleUrls: ['./employee-access-edit.component.css']
 })
-export class EmployeeAccessEditComponent implements OnInit, OnChanges {
+export class EmployeeAccessEditComponent implements OnInit {
 
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
@@ -30,7 +30,7 @@ export class EmployeeAccessEditComponent implements OnInit, OnChanges {
   passwordDetails: UpdateEmployeePassword;
 
   constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService,
-                private visited: VisitedComponentsService) {
+    private visited: VisitedComponentsService) {
     this.employeeFormEmail = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.email])],
       'password': ['', Validators.required],
@@ -47,30 +47,18 @@ export class EmployeeAccessEditComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    if (this.employeeIdFromEmployeeMenu) {
-      this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
-        .subscribe(data => {
-          this.employeeDetails = data;
-          this.employeeFormEmail.patchValue({
-            email: data.email,
-            id: data.employeeId
+    const isVisited = this.visited.checkIn('app-employee-access-edit');
+    if (!isVisited) {
+      if (this.employeeIdFromEmployeeMenu) {
+        this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
+          .subscribe(data => {
+            this.employeeDetails = data;
+            this.employeeFormEmail.patchValue({
+              email: data.email,
+              id: data.employeeId
+            });
           });
-        });
-    }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    //   console.log(this.tabIndex);
-    //   console.log('access edit' + JSON.stringify(changes));
-    //   for (const propName in changes) {
-    //      if (propName === 'selectedTabIndex') {
-    //      if (changes[propName].currentValue === 1) {
-    if (this.tabIndex === 1) {
-      console.log(changes);
-      alert('done');
-      //        }
-      //      }
-      //     }
+      }
     }
   }
 

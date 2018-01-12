@@ -1,17 +1,18 @@
-import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MatSnackBar } from '@angular/material';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-employee-edit',
   templateUrl: './employee-edit.component.html',
   styleUrls: ['./employee-edit.component.css']
 })
-export class EmployeeEditComponent implements OnInit, OnChanges {
+export class EmployeeEditComponent implements OnInit {
 
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
@@ -23,7 +24,8 @@ export class EmployeeEditComponent implements OnInit, OnChanges {
 
   employeeDetails: IEmployee;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar,
+    private visited: VisitedComponentsService) {
     this.employeeForm = fb.group({
       'name': ['', Validators.required],
       'family': ['', Validators.required],
@@ -32,24 +34,18 @@ export class EmployeeEditComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      if (this.activeTab) {
-        if (changes[propName].currentValue === true) {
-          if (this.employeeIdFromEmployeeMenu) {
-            this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
-              .subscribe(data => {
-                this.employeeDetails = data;
-                this.employeeForm.patchValue({
-                  name: data.name,
-                  family: data.family,
-                  id: data.employeeId
-                });
-              });
-          }
-        }
+    const isVisited = this.visited.checkIn('app-employee-edit');
+    if (!isVisited) {
+      if (this.employeeIdFromEmployeeMenu) {
+        this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
+          .subscribe(data => {
+            this.employeeDetails = data;
+            this.employeeForm.patchValue({
+              name: data.name,
+              family: data.family,
+              id: data.employeeId
+            });
+          });
       }
     }
   }

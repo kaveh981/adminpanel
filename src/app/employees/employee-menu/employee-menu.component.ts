@@ -1,4 +1,5 @@
 import { Component, OnInit, Input} from '@angular/core';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-employee-menu',
@@ -19,7 +20,7 @@ export class EmployeeMenuComponent implements OnInit {
     this.tabIndex = e.index;
   }
 
-  constructor() { }
+  constructor(private visited: VisitedComponentsService) { }
 
   ngOnInit() {
   }

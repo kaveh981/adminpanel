@@ -35,8 +35,6 @@ export class NewEmployeeComponent implements OnInit {
 
 
   submitForm(value: IEmployee): void {
-    console.log('Reactive Form Data: ');
-    console.log(value);
     this.employeeService.postEmployee(value)
       .subscribe();
   }

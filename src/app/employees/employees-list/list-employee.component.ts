@@ -27,14 +27,9 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    alert('on init');
-    console.log('ng on init list employee');
     const isVisited = this.visited.checkIn('app-list-employee');
-    console.log('is visited ' + isVisited);
     if (!isVisited) {
-      console.log('not visited');
-      this.employeeService.employeeList()
-        .subscribe(data => this.dataSource = new MatTableDataSource<IEmployee>(data));
+      this.subscribeMethod();
     }
   }
 
@@ -53,10 +48,15 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
     for (const propName in changes) {
       if (propName === 'selectedTabIndex') {
         if (changes[propName].currentValue === 1) {
-
+          this.subscribeMethod();
         }
       }
     }
+  }
+
+  subscribeMethod() {
+    this.employeeService.employeeList()
+      .subscribe(data => this.dataSource = new MatTableDataSource<IEmployee>(data));
   }
 
   deleteColum(employeeId) {
