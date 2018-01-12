@@ -4,6 +4,7 @@ import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@a
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
 import 'rxjs/add/operator/retry';
 import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-list-employee',
@@ -21,10 +22,19 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
 
   constructor(private employeeService: EmployeeService,
     public dialog: MatDialog,
-    public mainMenuTab: MainMenuTabService) {
+    public mainMenuTab: MainMenuTabService,
+    private visited: VisitedComponentsService) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    const isVisited = this.visited.isVisited('app-list-employee');
+    console.log(isVisited);
+    if (!isVisited) {
+      console.log('not visited');
+      this.employeeService.employeeList()
+      .subscribe(data => this.dataSource = new MatTableDataSource<IEmployee>(data));
+    }
+  }
 
   addNewTab(element): void {
     this.mainMenuTab.tabs.push({
@@ -41,8 +51,7 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
     for (const propName in changes) {
       if (propName === 'selectedTabIndex') {
         if (changes[propName].currentValue === 1) {
-          this.employeeService.employeeList()
-            .subscribe(data => this.dataSource = new MatTableDataSource<IEmployee>(data));
+        
         }
       }
     }

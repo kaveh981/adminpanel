@@ -1,10 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 
@@ -13,10 +14,13 @@ import { passwordConfirmationMatcher } from '../shared/custom-validators';
   templateUrl: './employee-access-edit.component.html',
   styleUrls: ['./employee-access-edit.component.css']
 })
-export class EmployeeAccessEditComponent implements OnInit {
+export class EmployeeAccessEditComponent implements OnInit, OnChanges {
 
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
+
+  @Input()
+  tabIndex: number;
 
   employeeFormPassword: FormGroup;
   employeeFormEmail: FormGroup;
@@ -25,7 +29,8 @@ export class EmployeeAccessEditComponent implements OnInit {
 
   passwordDetails: UpdateEmployeePassword;
 
-  constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService) {
+  constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService,
+                private visited: VisitedComponentsService) {
     this.employeeFormEmail = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.email])],
       'password': ['', Validators.required],
@@ -54,6 +59,21 @@ export class EmployeeAccessEditComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    //   console.log(this.tabIndex);
+    //   console.log('access edit' + JSON.stringify(changes));
+    //   for (const propName in changes) {
+    //      if (propName === 'selectedTabIndex') {
+    //      if (changes[propName].currentValue === 1) {
+    if (this.tabIndex === 1) {
+      console.log(changes);
+      alert('done');
+      //        }
+      //      }
+      //     }
+    }
+  }
+
   editEmployeeEmail(value: UpdateEmployeeEmail) {
     this.employeeService.updateEmployeeEmail(value)
       .subscribe(
@@ -70,21 +90,19 @@ export class EmployeeAccessEditComponent implements OnInit {
   }
 
   editEmployeePassword(value) {
-    console.log(value);
-    console.log({id : this.employeeIdFromEmployeeMenu , oldPassword : value.currentPassword, newPassword : value.passwords.password} );
     this.employeeService.updateEmployeePassword(
-      {id : this.employeeIdFromEmployeeMenu , oldPassword : value.currentPassword, newPassword : value.passwords.password})
-    .subscribe(
-    (response) => {
-      if (response.success) {
-        this.openSnackBar('The password has been updated');
-      } else {
-        this.openSnackBar(response.message);
+      { id: this.employeeIdFromEmployeeMenu, oldPassword: value.currentPassword, newPassword: value.passwords.password })
+      .subscribe(
+      (response) => {
+        if (response.success) {
+          this.openSnackBar('The password has been updated');
+        } else {
+          this.openSnackBar(response.message);
+        }
+      }, () => {
+        this.openSnackBar('There is an error! Please try again!');
       }
-    }, () => {
-      this.openSnackBar('There is an error! Please try again!');
-    }
-    );
+      );
   }
 
   openSnackBar(message: string) {

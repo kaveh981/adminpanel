@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
@@ -11,10 +11,13 @@ import { MatSnackBar } from '@angular/material';
   templateUrl: './employee-edit.component.html',
   styleUrls: ['./employee-edit.component.css']
 })
-export class EmployeeEditComponent implements OnInit {
+export class EmployeeEditComponent implements OnInit, OnChanges {
 
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
+
+  @Input('activeTab')
+  activeTab: boolean;
 
   employeeForm: FormGroup;
 
@@ -29,16 +32,25 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.employeeIdFromEmployeeMenu) {
-      this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
-        .subscribe(data => {
-          this.employeeDetails = data;
-          this.employeeForm.patchValue({
-            name: data.name,
-            family: data.family,
-            id: data.employeeId
-          });
-        });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (this.activeTab) {
+        if (changes[propName].currentValue === true) {
+          if (this.employeeIdFromEmployeeMenu) {
+            this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
+              .subscribe(data => {
+                this.employeeDetails = data;
+                this.employeeForm.patchValue({
+                  name: data.name,
+                  family: data.family,
+                  id: data.employeeId
+                });
+              });
+          }
+        }
+      }
     }
   }
 
