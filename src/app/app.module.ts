@@ -11,12 +11,14 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TabsModule } from 'ngx-bootstrap';
 import { MainMenuTabService } from './shared-services/main-menu-tab.service';
 import { VisitedComponentsService } from './shared-services/visited-components.service';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationPopupComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    SignInComponent
   ],
   entryComponents: [ConfirmationPopupComponent],
 
