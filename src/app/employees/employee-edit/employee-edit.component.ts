@@ -17,9 +17,6 @@ export class EmployeeEditComponent implements OnInit {
   @Input('employeeIdFromEmployeeMenu')
   employeeIdFromEmployeeMenu: number;
 
-  @Input('activeTab')
-  activeTab: boolean;
-
   employeeForm: FormGroup;
 
   employeeDetails: IEmployee;

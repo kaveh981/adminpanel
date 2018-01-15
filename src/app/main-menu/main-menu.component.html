@@ -12,7 +12,7 @@
          (removed)="removeTabHandler(tabz)"
          [customClass]="tabz.customClass">
       <div [ngSwitch]="tabz?.content">
-      <app-employee-menu [employeeIdFromEmployeeMenu]="tabz.employeeId" [activeTab]="tabz.active" *ngSwitchCase="'employee'"></app-employee-menu>
+      <app-employee-menu [employeeIdFromEmployeeMenu]="tabz.employeeId" *ngSwitchCase="'employee'"></app-employee-menu>
     </div>
     </tab>
   </tabset>

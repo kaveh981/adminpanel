@@ -11,9 +11,6 @@ export class EmployeeMenuComponent implements OnInit {
   @Input()
   employeeIdFromEmployeeMenu: number;
 
-  @Input()
-  activeTab: boolean;
-
   tabIndex: number;
 
   changeTabEvent(e) {
