@@ -7,7 +7,7 @@
   </mat-tab>
   <mat-tab label="Employees List">
     <h1>
-      <app-list-employee [selectedTabIndex]="tabIndex"></app-list-employee>
+      <app-list-employee *ngIf="(tabIndex === 1) || visited.isVisited('app-list-employee')" [selectedTabIndex]="tabIndex"></app-list-employee>
     </h1>
     <p>...</p>
   </mat-tab>

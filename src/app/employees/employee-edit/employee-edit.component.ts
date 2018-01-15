@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MatSnackBar } from '@angular/material';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-employee-edit',
@@ -20,7 +21,8 @@ export class EmployeeEditComponent implements OnInit {
 
   employeeDetails: IEmployee;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar,
+    private visited: VisitedComponentsService) {
     this.employeeForm = fb.group({
       'name': ['', Validators.required],
       'family': ['', Validators.required],

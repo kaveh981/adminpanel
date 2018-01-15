@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TabsModule } from 'ngx-bootstrap';
 import { MainMenuTabService } from './shared-services/main-menu-tab.service';
+import { VisitedComponentsService } from './shared-services/visited-components.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import { MainMenuTabService } from './shared-services/main-menu-tab.service';
     MatButtonModule,
     TabsModule.forRoot()
   ],
-  providers: [MainMenuTabService],
+  providers: [MainMenuTabService, VisitedComponentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

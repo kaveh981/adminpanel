@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-employees-menu',
@@ -13,9 +14,10 @@ export class EmployeesMenuComponent implements OnInit {
     this.tabIndex = e.index;
   }
 
-  constructor() { }
+  constructor(private visited: VisitedComponentsService) { }
 
   ngOnInit() {
+
   }
 
 }

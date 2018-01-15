@@ -1,9 +1,9 @@
-<mat-tab-group>
+<mat-tab-group #tabGroup (selectedTabChange)="changeTabEvent($event)">
   <mat-tab label="Edit Employee">
     <app-employee-edit [employeeIdFromEmployeeMenu]="employeeIdFromEmployeeMenu"></app-employee-edit>
   </mat-tab>
   <mat-tab label="Edit Access">
-    <app-employee-access-edit [employeeIdFromEmployeeMenu]="employeeIdFromEmployeeMenu"></app-employee-access-edit>
+    <app-employee-access-edit *ngIf="(tabIndex === 1) || visited.isVisited(employeeIdFromEmployeeMenu + '-employee-app-employee-access-edit')" [tabIndex]="tabIndex" [employeeIdFromEmployeeMenu]="employeeIdFromEmployeeMenu"></app-employee-access-edit>
   </mat-tab>
   <mat-tab label="Assign Roles">
   </mat-tab>
