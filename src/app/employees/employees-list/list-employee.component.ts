@@ -38,6 +38,7 @@ export class ListEmployeeComponent implements OnInit, OnChanges {
       title: element.name + ' ' + element.family,
       content: `employee`,
       employeeId: element.employeeId,
+      mainName: 'employee',
       disabled: false,
       removable: true
     });

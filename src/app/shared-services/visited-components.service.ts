@@ -22,6 +22,10 @@ export class VisitedComponentsService {
     }
   }
 
+  remove(namePrefix: string) {
+    this.visitedComponents = this.visitedComponents.filter(c => !c.startsWith(namePrefix));
+  }
+
   constructor() { }
 
 }
