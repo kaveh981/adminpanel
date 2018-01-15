@@ -34,9 +34,9 @@ export class NewEmployeeComponent implements OnInit {
   }
 
 
-  submitForm(value: IEmployee): void {
-    this.employeeService.postEmployee(value)
-      .subscribe();
+  submitForm(value: any): void {
+    this.employeeService.postEmployee({ name: value.name, family: value.family, email: value.email, password: value.passwords.password })
+      .subscribe(data => { alert('added'); });
   }
 
 }

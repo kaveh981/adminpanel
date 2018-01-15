@@ -5,6 +5,13 @@ interface IEmployee {
     employeeId: Number;
 }
 
+interface AddEmployee {
+    family: string;
+    name: string;
+    email: string;
+    password: string;
+}
+
 interface UpdateEmployee {
     family: string;
     name: string;
