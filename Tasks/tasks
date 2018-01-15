@@ -31,11 +31,17 @@
      to access the main menu read here https://angular.io/guide/component-interaction#parent-and-children-communicate-via-a-service
      
 6- Editing Employee
-20-- Use material tab to create a sub menu component name employee-menu that has two tabs edit employee and asign roles
-21-- Create the employee-edit component content of the tab we have a form like the add new employee from with the same client validation but filled with the employee data that can be edited
-    the api to get and employee with id is:
-    http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/:id 
-    the id should be replaced with the id of employee that we want to be edited and we have a save button
-    to save edited employee password update should be in the same tab but in the different section and should have it's own save button
-22-- When in the employee list we click on an employee a dynamic tab will be open the title of the tab is the name of the employee we clicked on
-    and in the content we have employee-menu component 
+20-- Use material tab to create a sub menu component name employee-menu that has three tabs edit employee, edit access and assign roles
+21-- By clicking on any employee on the list-employe, a dynamic tab with the list of the employee should be opened and enble us to edit
+      the information of the employee.
+22-- Adding a component to edit the email on the access page. The user should enter the password in order to be able to access 
+      the employee email
+23-- Adding a component to edit the password on the access page. The user should enter old password, new password and confirm 
+      new password
+24-- Adding lazy-loading for edit employee and edit access page
+25-- Make the sub-menu tab active once we click on any employee for editing
+
+7- Sign in page and authentication
+26--Adding a component to sign in the users
+27--Storing the token 
+28--Sending back the token with every request
