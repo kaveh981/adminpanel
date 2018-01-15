@@ -31,7 +31,7 @@ export class EmployeeService {
     editedEmployeePassword);
   }
 
-  postEmployee(newEmployee: IEmployee) {
+  postEmployee(newEmployee: AddEmployee) {
     return this.http.post('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', newEmployee);
   }
 
