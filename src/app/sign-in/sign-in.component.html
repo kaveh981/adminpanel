@@ -1,0 +1,33 @@
+<div class="signInContainer">
+  <div class="wrap-logInContainer">
+    <form [formGroup]="userLogIn" (ngSubmit)="signInInput(userLogIn.value)">
+      <mat-form-field>
+        <input matInput placeholder="Email" [formControl]="userLogIn.controls['email']">
+        <mat-hint>Errors appear instantly!</mat-hint>
+        <mat-error *ngIf="userLogIn.controls['email'].hasError('email') && !userLogIn.controls['email'].hasError('required')">
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="userLogIn.controls['email'].hasError('required') && userLogIn.controls['email'].touched">
+          Email is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Password" #input minlength="6" [type]="hide ? 'password' : 'text'" [formControl]="userLogIn.controls['password']">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        <mat-hint align="end">{{input.value?.length || 0}}/6</mat-hint>
+        <mat-error *ngIf="userLogIn.controls['password'].hasError('required') && userLogIn.controls['password'].touched">
+          Password is
+          <strong>required</strong>
+        </mat-error>
+        <mat-error *ngIf="(userLogIn.controls['password'].value).length < 6 && !userLogIn.controls['password'].hasError('required')">
+          Password must be atleast six characters!
+        </mat-error>
+      </mat-form-field>
+      <div class="container-login-form-btn">
+        <button mat-button type="submit" [disabled]="!userLogIn.valid">Save</button>
+      </div>
+    </form>
+  </div>
+</div>
