@@ -11,12 +11,18 @@ import { MainMenuComponent } from './main-menu/main-menu.component';
 import { TabsModule } from 'ngx-bootstrap';
 import { MainMenuTabService } from './shared-services/main-menu-tab.service';
 import { VisitedComponentsService } from './shared-services/visited-components.service';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationPopupComponent,
-    MainMenuComponent
+    MainMenuComponent,
+    SignInComponent,
   ],
   entryComponents: [ConfirmationPopupComponent],
 
@@ -27,7 +33,12 @@ import { VisitedComponentsService } from './shared-services/visited-components.s
     MatTabsModule,
     MatDialogModule,
     MatButtonModule,
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    MatIconModule,
+    MatFormFieldModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule
   ],
   providers: [MainMenuTabService, VisitedComponentsService],
   bootstrap: [AppComponent]
