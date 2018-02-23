@@ -34,3 +34,16 @@ interface ResponseDetails {
     success: boolean;
     message: string;
 }
+
+interface Credential {
+    username: string;
+    password: string;
+}
+
+interface AuthReturn {
+    user: { userId: number, clientId: number };
+    token: {
+        accessToken: string,
+        refreshToken: string
+    }
+}

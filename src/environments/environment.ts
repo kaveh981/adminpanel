@@ -4,5 +4,9 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiHost: 'http://localhost:8080',
+  authHost: 'http://localhost:8080/membership/login?permanent=true',
+  refreshTokenHost: 'http://localhost:8080/membership/token'
 };
+

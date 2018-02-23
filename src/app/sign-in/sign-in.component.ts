@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   FormControl, FormBuilder,
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
+import { AuthService } from '../shared-services/auth.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -12,10 +13,11 @@ import {
 export class SignInComponent implements OnInit {
 
   hide = true;
+  @Output() onLogin = new EventEmitter<boolean>();
 
   userLogIn: FormGroup;
 
-  constructor(fb: FormBuilder) {
+  constructor(fb: FormBuilder, private authService: AuthService) {
 
     this.userLogIn = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.email])],
@@ -28,7 +30,14 @@ export class SignInComponent implements OnInit {
   }
 
   signInInput(value: any) {
-    console.log(value)
+    console.log(value);
+    this.authService.login({ username: value.email, password: value.password })
+      .subscribe(authReturn => {
+        console.log('reached hereeee');
+        console.log(authReturn.token);
+        this.authService.addTokens(authReturn.token.accessToken, authReturn.token.refreshToken);
+        this.onLogin.emit(true);
+      }, error => { console.log(error); this.onLogin.emit(false); });
   }
 
 }
