@@ -9,7 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule, MatSnackBarModule } from '@angular/material';
-import { HttpClientModule } from '@angular/common/http';
+// import { HttpClientModule } from '@angular/common/http';
 import { EmployeeService } from '../employees/shared/employee.service';
 import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
@@ -26,7 +26,6 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCardModule,
     MatButtonModule,
     MatTableModule,
-    HttpClientModule,
     MatSnackBarModule,
     MatGridListModule
   ],

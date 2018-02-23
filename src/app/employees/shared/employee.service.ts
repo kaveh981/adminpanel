@@ -2,41 +2,43 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NewEmployeeComponent } from '../employee-new/new-employee.component';
 import { Observable } from 'rxjs/Observable';
+import { ApiService } from '../../shared-services/api.service';
 
 @Injectable()
 
 export class EmployeeService {
 
-  constructor(private http: HttpClient) { }
+  routh = 'http://localhost:8080';
+  constructor(private http: ApiService) { }
 
   employeeList(): Observable<IEmployee[]> {
-    return this.http.get<IEmployee[]>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees');
+    return this.http.get<IEmployee[]>(`employees`);
   }
 
   getEmployeeById(employeeId: number): Observable<IEmployee> {
-    return this.http.get<IEmployee>(`http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/${employeeId}`);
+    return this.http.get<IEmployee>(`employees/${employeeId}`);
   }
 
   updateEmployee(editedEmployee: UpdateEmployee) {
-    return this.http.put('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', editedEmployee);
+    return this.http.put(`employees`, editedEmployee);
   }
 
   updateEmployeeEmail(editedEmployeeEmail: UpdateEmployeeEmail): Observable<ResponseDetails> {
-    return this.http.put<ResponseDetails>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/email',
+    return this.http.put<ResponseDetails>(`employees/email`,
       editedEmployeeEmail);
   }
 
   updateEmployeePassword(editedEmployeePassword: UpdateEmployeePassword): Observable<ResponseDetails> {
-    return this.http.put<ResponseDetails>('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/password',
-    editedEmployeePassword);
+    return this.http.put<ResponseDetails>(`employees/password`,
+      editedEmployeePassword);
   }
 
   postEmployee(newEmployee: AddEmployee) {
-    return this.http.post('http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees', newEmployee);
+    return this.http.post(`employees`, newEmployee);
   }
 
   deleteEmployee(employeeId) {
-    return this.http.delete<IEmployee>(`http://mgm-mgm.193b.starter-ca-central-1.openshiftapps.com/employees/${employeeId}`);
+    return this.http.delete<IEmployee>(`employees/${employeeId}`);
   }
 
 }
