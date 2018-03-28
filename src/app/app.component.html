@@ -1,3 +1,3 @@
-<button (click)="logout()" mat-button>Logout</button>
+<button *ngIf="isAuthenticated" (click)="logout()" mat-button>Logout</button>
 <app-main-menu *ngIf="isAuthenticated"></app-main-menu>
 <app-sign-in (onLogin)="onLogin($event)" *ngIf="!isAuthenticated"></app-sign-in>

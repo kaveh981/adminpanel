@@ -5,7 +5,6 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
-import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 
@@ -16,11 +15,8 @@ import { passwordConfirmationMatcher } from '../shared/custom-validators';
 })
 export class EmployeeAccessEditComponent implements OnInit {
 
-  @Input('employeeIdFromEmployeeMenu')
-  employeeIdFromEmployeeMenu: number;
-
-  @Input()
-  tabIndex: number;
+  @Input('tabId')
+  tabId: number;
 
   employeeFormPassword: FormGroup;
   employeeFormEmail: FormGroup;
@@ -29,8 +25,7 @@ export class EmployeeAccessEditComponent implements OnInit {
 
   passwordDetails: UpdateEmployeePassword;
 
-  constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService,
-    private visited: VisitedComponentsService) {
+  constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService) {
     this.employeeFormEmail = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.email])],
       'password': ['', Validators.required],
@@ -47,18 +42,15 @@ export class EmployeeAccessEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    const isVisited = this.visited.checkIn(`${this.employeeIdFromEmployeeMenu}-employee-app-employee-access-edit`);
-    if (!isVisited) {
-      if (this.employeeIdFromEmployeeMenu) {
-        this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
-          .subscribe(data => {
-            this.employeeDetails = data;
-            this.employeeFormEmail.patchValue({
-              email: data.email,
-              id: data.employeeId
-            });
+    if (this.tabId) {
+      this.employeeService.getEmployeeById(this.tabId)
+        .subscribe(data => {
+          this.employeeDetails = data;
+          this.employeeFormEmail.patchValue({
+            email: data.email,
+            id: data.employeeId
           });
-      }
+        });
     }
   }
 
@@ -66,20 +58,22 @@ export class EmployeeAccessEditComponent implements OnInit {
     this.employeeService.updateEmployeeEmail(value)
       .subscribe(
       (response) => {
+        console.log(response);
         if (response.success) {
           this.openSnackBar('The employee has been updated');
         } else {
           this.openSnackBar(response.message);
         }
-      }, () => {
-        this.openSnackBar('There is an error! Please try again!');
+      }, (error) => {
+        console.log(error);
+        this.openSnackBar('There is an error! Please try again! ');
       }
       );
   }
 
   editEmployeePassword(value) {
     this.employeeService.updateEmployeePassword(
-      { id: this.employeeIdFromEmployeeMenu, oldPassword: value.currentPassword, newPassword: value.passwords.password })
+      { id: this.tabId, oldPassword: value.currentPassword, newPassword: value.passwords.password })
       .subscribe(
       (response) => {
         if (response.success) {

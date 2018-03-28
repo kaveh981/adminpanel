@@ -47,3 +47,17 @@ interface AuthReturn {
         refreshToken: string
     }
 }
+
+interface Role {
+    role: string;
+    roleId: string;
+}
+
+interface MainTab {
+    title: string,
+    content: string,
+    tabId: number,
+    mainName: string,
+    disabled: boolean,
+    removable: boolean
+}

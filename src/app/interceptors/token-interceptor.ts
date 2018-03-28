@@ -9,7 +9,6 @@ export class TokenInterceptor implements HttpInterceptor {
     constructor(private auth: AuthService) { }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('hereeee');
         if (this.auth.loggedIn()) {
             request = request.clone({
                 setHeaders: {

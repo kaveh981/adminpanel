@@ -41,4 +41,32 @@ export class EmployeeService {
     return this.http.delete<IEmployee>(`employees/${employeeId}`);
   }
 
+  postNewRole(role) {
+    return this.http.post(`roles`, role);
+  }
+
+  getRolesForUser(employeeId): Observable<Role[]> {
+    console.log(employeeId);
+    return this.http.get<Role[]>(`roles/employee/${employeeId}`);
+  }
+
+  deleteRole(roleId) {
+    return this.http.delete(`roles/${roleId}`);
+  }
+
+  updateRole(role: Role): Observable<ResponseDetails> {
+    console.log(role);
+    return this.http.put<ResponseDetails>(`roles`,
+      role);
+  }
+
+  getRoleById(id: number): Observable<Role> {
+    return this.http.get<Role>(`roles/${id}`);
+  }
+
+  addOrRemoveUserRole(assignRole) {
+    console.log(assignRole);
+    return this.http.post(`employees/role`, assignRole);
+  }
+
 }

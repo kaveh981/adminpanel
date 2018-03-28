@@ -15,6 +15,7 @@ export class AuthService {
     tokenIsBeingRefreshed: Subject<boolean>;
     lastUrl: string;
     jwtHelper: JwtHelper = new JwtHelper();
+    roles = [];
     // cachedRequests: Array<HttpRequest<any>> = [];
 
     constructor(private apiService: ApiService) {
@@ -41,6 +42,18 @@ export class AuthService {
     loggedIn() {
         const token = localStorage.getItem('token');
         return token && !this.jwtHelper.isTokenExpired(token);
+    }
+
+    hasRole(role) {
+        if (this.roles.length < 1) {
+            this.addRoles();
+        }
+        return this.roles.indexOf(role) !== -1;
+    }
+
+    addRoles() {
+        const token = localStorage.getItem('token');
+        this.roles = this.jwtHelper.decodeToken(token).roles;
     }
 
     addTokens(accessToken: string, refreshToken?: string) {

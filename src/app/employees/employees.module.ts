@@ -3,18 +3,21 @@ import { CommonModule } from '@angular/common';
 import { EmployeesMenuComponent } from './employees-menu/employees-menu.component';
 import { ListEmployeeComponent } from './employees-list/list-employee.component';
 import { NewEmployeeComponent } from './employee-new/new-employee.component';
-import { MatTabsModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule, MatSnackBarModule } from '@angular/material';
-// import { HttpClientModule } from '@angular/common/http';
+import {
+  MatTabsModule,
+  MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
+  MatSnackBarModule, MatCheckboxModule, MatListModule
+} from '@angular/material';
 import { EmployeeService } from '../employees/shared/employee.service';
 import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
 import { EmployeeAccessEditComponent } from './employee-access-edit/employee-access-edit.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { EmployeesRolesNewComponent } from '../employees/employees-roles-new/employees-roles-new.component';
+import { RoleMenuComponent } from './role-menu/role-menu.component';
+import { RoleEditComponent } from './role-edit/role-edit.component';
+import { RoleAssignComponent } from './role-assign/role-assign.component';
 
 @NgModule({
   imports: [
@@ -27,15 +30,18 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatButtonModule,
     MatTableModule,
     MatSnackBarModule,
-    MatGridListModule
+    MatCheckboxModule,
+    MatGridListModule,
+    MatListModule
   ],
 
   providers: [EmployeeService],
 
   declarations: [EmployeesMenuComponent, ListEmployeeComponent,
-    NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent],
+    NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent,
+    EmployeesRolesNewComponent, RoleMenuComponent, RoleEditComponent, RoleAssignComponent],
 
-  exports: [EmployeesMenuComponent, EmployeeMenuComponent]
+  exports: [EmployeesMenuComponent, EmployeeMenuComponent, RoleMenuComponent]
 
 })
 export class EmployeesModule { }

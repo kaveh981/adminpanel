@@ -5,7 +5,6 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MatSnackBar } from '@angular/material';
-import { VisitedComponentsService } from '../../shared-services/visited-components.service';
 
 @Component({
   selector: 'app-employee-edit',
@@ -14,15 +13,14 @@ import { VisitedComponentsService } from '../../shared-services/visited-componen
 })
 export class EmployeeEditComponent implements OnInit {
 
-  @Input('employeeIdFromEmployeeMenu')
-  employeeIdFromEmployeeMenu: number;
+  @Input('tabId')
+  tabId: number;
 
   employeeForm: FormGroup;
 
   employeeDetails: IEmployee;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar,
-    private visited: VisitedComponentsService) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, private snackBar: MatSnackBar) {
     this.employeeForm = fb.group({
       'name': ['', Validators.required],
       'family': ['', Validators.required],
@@ -31,8 +29,8 @@ export class EmployeeEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.employeeIdFromEmployeeMenu) {
-      this.employeeService.getEmployeeById(this.employeeIdFromEmployeeMenu)
+    if (this.tabId) {
+      this.employeeService.getEmployeeById(this.tabId)
         .subscribe(data => {
           this.employeeDetails = data;
           this.employeeForm.patchValue({
@@ -50,10 +48,9 @@ export class EmployeeEditComponent implements OnInit {
       () => {
         this.openSnackBar('The employee has been updated');
       },
-      () => {
-        this.openSnackBar('There is an error! Please try again!');
-      }
-      );
+      (error) => {
+        this.openSnackBar('There is an error! Please try again! ' + error.error);
+      });
   }
   openSnackBar(message: string) {
     this.snackBar.open(message, '', {

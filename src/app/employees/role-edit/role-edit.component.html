@@ -1,0 +1,16 @@
+<mat-card>
+  <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+
+    <mat-card>
+      <mat-form-field class="employeeContainer">
+        <input matInput placeholder="Role Name" [formControl]="myForm.controls['role']">
+        <mat-error *ngIf="myForm.controls['role'].hasError('required') && myForm.controls['role'].touched">
+          Role Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="!myForm.valid">Save</button>
+    </mat-card>
+
+  </form>
+</mat-card>

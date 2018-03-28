@@ -1,5 +1,7 @@
-import { Component, OnInit, Input} from '@angular/core';
-import { VisitedComponentsService } from '../../shared-services/visited-components.service';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { EmployeeAccessEditComponent } from '../employee-access-edit/employee-access-edit.component';
+import { RoleAssignComponent } from '../role-assign/role-assign.component';
+import { AuthService } from '../../shared-services/auth.service';
 
 @Component({
   selector: 'app-employee-menu',
@@ -9,17 +11,25 @@ import { VisitedComponentsService } from '../../shared-services/visited-componen
 export class EmployeeMenuComponent implements OnInit {
 
   @Input()
-  employeeIdFromEmployeeMenu: number;
+  tabId: number;
+
+  @ViewChild(EmployeeAccessEditComponent)
+  employeeAccessEditComponent: EmployeeAccessEditComponent;
+
+  @ViewChild(RoleAssignComponent)
+  roleAssignComponent: RoleAssignComponent;
 
   tabIndex: number;
+  tabLabel = '';
 
+  constructor(private authService: AuthService) { }
   changeTabEvent(e) {
     this.tabIndex = e.index;
+    this.tabLabel = e.tab.textLabel;
   }
 
-  constructor(private visited: VisitedComponentsService) { }
-
   ngOnInit() {
+    alert('employee');
   }
 
 }

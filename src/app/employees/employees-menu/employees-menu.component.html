@@ -1,13 +1,19 @@
 <mat-tab-group (selectedTabChange)="changeTabEvent($event)">
-  <mat-tab label="New Employee">
+  <mat-tab *ngIf="authService.hasRole('addEmployee')" label="New Employee">
     <h1>
       <app-new-employee></app-new-employee>
     </h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab label="Employees List">
+  <mat-tab *ngIf="authService.hasRole('employeeList')"  label="Employees List">
     <h1>
-      <app-list-employee *ngIf="(tabIndex === 1) || visited.isVisited('app-list-employee')" [selectedTabIndex]="tabIndex"></app-list-employee>
+      <app-list-employee *ngIf="(tabLabel === 'Employees List') || listEmployeeComponent"></app-list-employee>
+    </h1>
+    <p>...</p>
+  </mat-tab>
+  <mat-tab *ngIf="authService.hasRole('addRole')"  label="Add roles">
+    <h1>
+      <app-employees-roles-new *ngIf="(tabLabel === 'Add roles') || employeesRolesNewComponent"></app-employees-roles-new>
     </h1>
     <p>...</p>
   </mat-tab>
