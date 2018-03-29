@@ -18,6 +18,8 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -44,7 +46,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     MatFormFieldModule,
     ReactiveFormsModule,
     FormsModule,
-    MatInputModule
+    MatInputModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     MainMenuTabService, AuthService, ApiService,

@@ -1,6 +1,6 @@
 <div>
   <tabset>
-      <tab heading="Employees" *ngIf="authService.hasRole('customers')" id="tab1"><app-employees-menu></app-employees-menu></tab>
+      <tab customClass="kkkkk" heading="Employees" *ngIf="authService.hasRole('customers')" id="tab1"><app-employees-menu></app-employees-menu></tab>
       <tab heading="Customers" *ngIf="authService.hasRole('employees')" >Static content 1</tab>
     <tab *ngFor="let tabz of mainMenuTab.tabs"
          [heading]="tabz.title"
