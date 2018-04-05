@@ -17,4 +17,11 @@
     </h1>
     <p>...</p>
   </mat-tab>
+   <mat-tab *ngIf="!authService.hasRole('addRoute')"  label="Add routes">
+    <h1>
+      <app-route-new *ngIf="(tabLabel === 'Add routes') || routeNewComponent"></app-route-new>
+    </h1>
+    <p>...</p>
+  </mat-tab>
 </mat-tab-group>
+

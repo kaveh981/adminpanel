@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListEmployeeComponent } from '../employees-list/list-employee.component';
 import { EmployeesRolesNewComponent } from '../employees-roles-new/employees-roles-new.component';
+import { RouteNewComponent } from '../route-new/route-new.component';
 import { AuthService } from '../../shared-services/auth.service';
 
 @Component({
@@ -13,6 +14,8 @@ export class EmployeesMenuComponent implements OnInit {
   listEmployeeComponent: ListEmployeeComponent;
   @ViewChild(EmployeesRolesNewComponent)
   employeesRolesNewComponent: EmployeesMenuComponent;
+   @ViewChild(RouteNewComponent)
+  routeNewComponent: RouteNewComponent;
 
   tabIndex: number = null;
   tabLabel = '';

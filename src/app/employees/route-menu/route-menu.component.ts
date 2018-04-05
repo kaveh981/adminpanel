@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { AuthService } from '../../shared-services/auth.service';
 
 @Component({
-  selector: 'app-role-menu',
-  templateUrl: './role-menu.component.html',
-  styleUrls: ['./role-menu.component.css']
+  selector: 'app-route-menu',
+  templateUrl: './route-menu.component.html',
+  styleUrls: ['./route-menu.component.css']
 })
-export class RoleMenuComponent implements OnInit {
+export class RouteMenuComponent implements OnInit {
 
   @Input()
   tabId: number;

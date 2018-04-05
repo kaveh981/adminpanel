@@ -29,7 +29,6 @@ export class EmployeeMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    alert('employee');
   }
 
 }

@@ -69,4 +69,30 @@ export class EmployeeService {
     return this.http.post(`employees/role`, assignRole);
   }
 
+  getRoutes(): Observable<Route[]> {
+    return this.http.get<Role[]>(`routes`);
+  }
+
+  postNewRoute(route) {
+    return this.http.post(`routes`, route);
+  }
+
+  deleteRoute(routeId) {
+    return this.http.delete(`routes/${routeId}`);
+  }
+
+  getRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(`roles`);
+  }
+
+  getRouteById(id: number): Observable<Route> {
+    return this.http.get<Route>(`routes/${id}`);
+  }
+
+  updateRoute(route: Route): Observable<ResponseDetails> {
+    console.log(route);
+    return this.http.put<ResponseDetails>(`routes`,
+      route);
+  }
+
 }

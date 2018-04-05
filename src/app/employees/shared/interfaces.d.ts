@@ -53,6 +53,14 @@ interface Role {
     roleId: string;
 }
 
+interface Route {
+    route: string;
+    method: string;
+    routeId:number;
+    role:string;
+    roleId:number;
+}
+
 interface MainTab {
     title: string,
     content: string,
@@ -60,4 +68,11 @@ interface MainTab {
     mainName: string,
     disabled: boolean,
     removable: boolean
+}
+
+declare const enum Method {
+    get = 1,
+    post,
+    put,
+    delete
 }

@@ -7,7 +7,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import {
   MatTabsModule,
   MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
-  MatSnackBarModule, MatCheckboxModule, MatListModule
+  MatSnackBarModule, MatCheckboxModule, MatListModule, MatSelectModule, MatIconModule, MatPaginatorModule,
+  MatSortModule
 } from '@angular/material';
 import { EmployeeService } from '../employees/shared/employee.service';
 import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
@@ -18,6 +19,10 @@ import { EmployeesRolesNewComponent } from '../employees/employees-roles-new/emp
 import { RoleMenuComponent } from './role-menu/role-menu.component';
 import { RoleEditComponent } from './role-edit/role-edit.component';
 import { RoleAssignComponent } from './role-assign/role-assign.component';
+import { RouteNewComponent } from './route-new/route-new.component';
+import { RoleSearchComponent } from './role-search/role-search.component';
+import { RouteMenuComponent } from './route-menu/route-menu.component';
+import { RouteEditComponent } from './route-edit/route-edit.component';
 
 @NgModule({
   imports: [
@@ -32,16 +37,22 @@ import { RoleAssignComponent } from './role-assign/role-assign.component';
     MatSnackBarModule,
     MatCheckboxModule,
     MatGridListModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatIconModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
+  entryComponents: [RoleSearchComponent],
 
   providers: [EmployeeService],
 
   declarations: [EmployeesMenuComponent, ListEmployeeComponent,
     NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent,
-    EmployeesRolesNewComponent, RoleMenuComponent, RoleEditComponent, RoleAssignComponent],
+    EmployeesRolesNewComponent, RoleMenuComponent, RoleEditComponent, RoleAssignComponent, RouteNewComponent,
+    RoleSearchComponent, RouteMenuComponent, RouteEditComponent],
 
-  exports: [EmployeesMenuComponent, EmployeeMenuComponent, RoleMenuComponent]
+  exports: [EmployeesMenuComponent, EmployeeMenuComponent, RoleMenuComponent, RouteMenuComponent]
 
 })
 export class EmployeesModule { }

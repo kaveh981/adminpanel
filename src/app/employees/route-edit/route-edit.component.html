@@ -1,0 +1,33 @@
+<mat-card>
+  <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+    <mat-card>
+      <mat-form-field class="employeeContainer">
+        <input matInput placeholder="Route Name" [formControl]="myForm.controls['route']" required>
+        <mat-error *ngIf="myForm.controls['route'].hasError('required') && myForm.controls['route'].touched">
+          Route Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="employeeContainer">
+        <mat-select placeholder="Method" [formControl]="myForm.controls['method']" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let method of methods" [value]="method.value">
+            {{method.key}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="myForm.controls['method'].hasError('required')">Please choose an method</mat-error>
+        <mat-hint>{{myForm.controls['method'].value?.sound}}</mat-hint>
+      </mat-form-field>
+      <mat-form-field class="employeeContainer">
+        <input [(ngModel)]="roleId" matInput placeholder="Role" [formControl]="myForm.controls['roleId']">
+        <mat-icon matSuffix (click)="searchRoles()">search</mat-icon>
+        <mat-error *ngIf="myForm.controls['roleId'].hasError('required') && myForm.controls['roleId'].touched">
+          Route Name is
+          <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <button mat-button type="submit" [disabled]="!myForm.valid">Save</button>
+    </mat-card>
+
+  </form>
+</mat-card>

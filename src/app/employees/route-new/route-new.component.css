@@ -1,0 +1,39 @@
+body { 
+    font-family: Roboto, Arial, sans-serif;
+    margin: 0;
+   
+  }
+
+  .divContainer{
+    padding: 20px 20px 20px 20px;
+  }
+  
+  .employeeContainer {
+    font-size: 10pt;   
+    width: 25%;
+  }
+ 
+ 
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-height: 500px;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 500px;
+}
+
+.myrow {
+      flex-flow: row wrap;
+    box-sizing: border-box;
+    display: flex;
+    align-self: center;
+}
+
+.p-10 {
+    padding: 10px;
+}

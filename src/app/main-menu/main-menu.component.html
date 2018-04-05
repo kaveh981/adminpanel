@@ -1,7 +1,7 @@
 <div>
-  <tabset>
-      <tab customClass="kkkkk" heading="Employees" *ngIf="authService.hasRole('customers')" id="tab1"><app-employees-menu></app-employees-menu></tab>
-      <tab heading="Customers" *ngIf="authService.hasRole('employees')" >Static content 1</tab>
+  <tabset #mainTabs>
+      <tab heading="Employees" *ngIf="authService.hasRole('customers')" ><app-employees-menu></app-employees-menu></tab>
+      <tab heading="Items" *ngIf="authService.hasRole('employees')" >Static content 1</tab>
     <tab *ngFor="let tabz of mainMenuTab.tabs"
          [heading]="tabz.title"
          [active]="true"
@@ -14,6 +14,7 @@
       <div [ngSwitch]="tabz?.content">
          <app-employee-menu [tabId]="tabz.tabId" *ngSwitchCase="'employee'"></app-employee-menu>
          <app-role-menu [tabId]="tabz.tabId" *ngSwitchCase="'role'"></app-role-menu>
+         <app-route-menu [tabId]="tabz.tabId" *ngSwitchCase="'route'"></app-route-menu>
     </div>
     </tab>
   </tabset>
