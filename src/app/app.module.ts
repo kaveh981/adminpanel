@@ -1,28 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ModuleSharedModule } from './module-shared/module-shared.module';
 import { EmployeesModule } from './employees/employees.module';
+import { ProductsModule } from './products/products.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatTabsModule } from '@angular/material';
+import {
+  MatDialogModule, MatIconModule, MatToolbarModule,
+  MatMenuModule, MatDatepickerModule, MatNativeDateModule
+} from '@angular/material';
+import { TabsModule } from 'ngx-bootstrap';
 import { AppComponent } from './app.component';
 import { ConfirmationPopupComponent } from './shared-components/confirmation-popup/confirmation-popup.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { MainMenuComponent } from './main-menu/main-menu.component';
-import { TabsModule } from 'ngx-bootstrap';
+import { SignInComponent } from './sign-in/sign-in.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MainMenuTabService } from './shared-services/main-menu-tab.service';
 import { TokenInterceptor } from './interceptors/token-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { ApiService } from './shared-services/api.service';
 import { AuthService } from './shared-services/auth.service';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatToolbarModule, MatMenuModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
-import { MatInputModule } from '@angular/material/input';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
 
 @NgModule({
   declarations: [
@@ -35,23 +32,19 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
   imports: [
     BrowserModule,
+    ModuleSharedModule,
     HttpClientModule,
     EmployeesModule,
+    ProductsModule,
     BrowserAnimationsModule,
-    MatTabsModule,
-    MatDialogModule,
-    MatButtonModule,
     TabsModule.forRoot(),
-    MatIconModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatInputModule,
     FlexLayoutModule,
     MatToolbarModule,
     MatMenuModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule,
+    MatIconModule
   ],
   providers: [
     MainMenuTabService, AuthService, ApiService,

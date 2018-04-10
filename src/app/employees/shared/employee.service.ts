@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { NewEmployeeComponent } from '../employee-new/new-employee.component';
 import { Observable } from 'rxjs/Observable';
 import { ApiService } from '../../shared-services/api.service';
 
@@ -8,7 +7,6 @@ import { ApiService } from '../../shared-services/api.service';
 
 export class EmployeeService {
 
-  routh = 'http://localhost:8080';
   constructor(private http: ApiService) { }
 
   employeeList(): Observable<IEmployee[]> {
