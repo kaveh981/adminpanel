@@ -1,31 +1,27 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-  <mat-grid-tile>
-    <div class="divContainer">
-      <mat-card>
+<div class="divContainer">
+  <mat-card>
+    <div id="container" >
+      <div id="tree" >
         <tree-root #tree [nodes]="nodes" [options]="options" (focus)="onFocus($event)">
           <ng-template #treeNodeTemplate let-node let-index="index">
             <span [class]="node.data.className + 'Index'">{{ node.data.name }}</span>
             <button mat-icon-button>
-    <mat-icon aria-label="Delete">delete</mat-icon>
+    <mat-icon aria-label="Delete" (click)="delete(node)">delete</mat-icon>
   </button>
             <button mat-icon-button>
-    <mat-icon aria-label="Add">add</mat-icon>
+    <mat-icon aria-label="Add" (click)="add(node)">add</mat-icon>
   </button>
             <button mat-icon-button>
-    <mat-icon aria-label="Edit">edit</mat-icon>
+    <mat-icon aria-label="Edit" (click)="edit(node)">edit</mat-icon>
   </button>
           </ng-template>
         </tree-root>
-      </mat-card>
-    </div>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <div class="divContainer">
-      <mat-card>
+      </div>
+      <div id="treeForm">
         <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
           <mat-form-field class="employeeContainer">
-            <input matInput placeholder="Category" [formControl]="myForm.controls['category']">
-            <mat-error *ngIf="myForm.controls['category'].hasError('required') && myForm.controls['category'].touched">
+            <input matInput placeholder="Category" [formControl]="myForm.controls['name']">
+            <mat-error *ngIf="myForm.controls['name'].hasError('required') && myForm.controls['name'].touched">
               Category is
               <strong>required</strong>
             </mat-error>
@@ -39,9 +35,9 @@
             </mat-select>
             <mat-error *ngIf="myForm.controls['status'].hasError('required')">Please choose a status</mat-error>
           </mat-form-field>
-          <button mat-button type="submit" [disabled]="!myForm.valid">Submit</button>
+          <button mat-button type="submit" [disabled]="!myForm.valid">{{action}}</button>
         </form>
-      </mat-card>
+      </div>
     </div>
-  </mat-grid-tile>
-</mat-grid-list>
+  </mat-card>
+</div>

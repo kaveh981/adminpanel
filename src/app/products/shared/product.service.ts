@@ -13,16 +13,20 @@ export class ProductService {
     return this.http.get<ProductCategory[]>(`products/category/parent/${parentId}`);
   }
 
+  getProductCategoryById(id?): Observable<any> {
+    return this.http.get<ProductCategory[]>(`products/category/${id}`);
+  }
+
   postProductCategory(productCategory: ProductCategory) {
     return this.http.post(`products/category`, productCategory);
   }
 
-  updateEmployee(editedEmployee: UpdateEmployee) {
-    return this.http.put(`employees`, editedEmployee);
+  updateProductCategory(productCategory: ProductCategory) {
+    return this.http.put(`products/category`, productCategory);
   }
 
-  deleteRoute(routeId) {
-    return this.http.delete(`routes/${routeId}`);
+  deleteProductCategory(id) {
+    return this.http.delete(`products/category/${id}`);
   }
 
 }

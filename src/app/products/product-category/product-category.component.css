@@ -1,13 +1,23 @@
-  .divContainer{
-    padding: 20px 20px 20px 20px;
-  }
+
   
   .employeeContainer {
     display: flex;
     flex-direction: column;
-    font-size: 10pt;   
   }
  
  
 
- 
+ #container {
+    overflow: hidden;
+     padding: 20px 20px 20px 20px;
+}
+
+#tree {
+    float: left;
+    width: 50%;
+}
+
+#treeForm {
+    float: right;
+    width: 50%;
+}   
