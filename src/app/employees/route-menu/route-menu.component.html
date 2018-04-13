@@ -1,5 +1,5 @@
-<mat-tab-group #tabGroup (selectedTabChange)="changeTabEvent($event)">
+<mat-tab-group #subTab (selectedTabChange)="changeTabEvent($event)">
   <mat-tab *ngIf="authService.hasRole('editRoute')" label="Edit Route">
-    <app-route-edit [tabId]="tabId"></app-route-edit>
+    <app-route-edit *ngIf="(tabLabel === 'Edit Route') || (routeEditComponent)" [tabId]="tabId"></app-route-edit>
   </mat-tab>
 </mat-tab-group>

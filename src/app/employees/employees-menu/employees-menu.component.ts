@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ListEmployeeComponent } from '../employees-list/list-employee.component';
 import { EmployeesRolesNewComponent } from '../employees-roles-new/employees-roles-new.component';
+import { NewEmployeeComponent } from '../employee-new/new-employee.component';
 import { RouteNewComponent } from '../route-new/route-new.component';
 import { AuthService } from '../../shared-services/auth.service';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-employees-menu',
@@ -10,11 +12,15 @@ import { AuthService } from '../../shared-services/auth.service';
   styleUrls: ['./employees-menu.component.css']
 })
 export class EmployeesMenuComponent implements OnInit {
+  @ViewChild('subTab')
+  matTabsModule: MatTabsModule;
+  @ViewChild(NewEmployeeComponent)
+  newEmployeeComponent: NewEmployeeComponent;
   @ViewChild(ListEmployeeComponent)
   listEmployeeComponent: ListEmployeeComponent;
   @ViewChild(EmployeesRolesNewComponent)
   employeesRolesNewComponent: EmployeesMenuComponent;
-   @ViewChild(RouteNewComponent)
+  @ViewChild(RouteNewComponent)
   routeNewComponent: RouteNewComponent;
 
   tabIndex: number = null;
@@ -32,7 +38,7 @@ export class EmployeesMenuComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-
+    setTimeout(() => this.tabLabel = this.matTabsModule['_tabs'].first.textLabel);
   }
 
 }
