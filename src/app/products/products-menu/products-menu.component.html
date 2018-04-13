@@ -7,7 +7,7 @@
   </mat-tab>
   <mat-tab *ngIf="authService.hasRole('employeeList')" label="Add Product">
     <h1>
-      <app-new-product *ngIf="tabLabel === 'Add Product' || newProductComponent"></app-new-product>
+      <app-product-new *ngIf="tabLabel === 'Add Product' || productNewComponent"></app-product-new>
     </h1>
     <p>...</p>
   </mat-tab>

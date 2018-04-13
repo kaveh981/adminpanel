@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { ModuleSharedModule } from '../module-shared/module-shared.module';
 import { EmployeesMenuComponent } from './employees-menu/employees-menu.component';
 import { ListEmployeeComponent } from './employees-list/list-employee.component';
-import { NewEmployeeComponent } from './employee-new/new-employee.component';
+import { EmployeeNewComponent } from './employee-new/employee-new.component';
 import { EmployeeService } from '../employees/shared/employee.service';
 import { EmployeeMenuComponent } from './employee-menu/employee-menu.component';
 import { EmployeeEditComponent } from './employee-edit/employee-edit.component';
@@ -25,7 +25,7 @@ import { RouteEditComponent } from './route-edit/route-edit.component';
   providers: [EmployeeService],
 
   declarations: [EmployeesMenuComponent, ListEmployeeComponent,
-    NewEmployeeComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent,
+    EmployeeNewComponent, EmployeeMenuComponent, EmployeeEditComponent, EmployeeAccessEditComponent,
     EmployeesRolesNewComponent, RoleMenuComponent, RoleEditComponent, RoleAssignComponent, RouteNewComponent,
     RoleSearchComponent, RouteMenuComponent, RouteEditComponent],
 

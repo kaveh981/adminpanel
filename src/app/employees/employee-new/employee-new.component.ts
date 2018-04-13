@@ -8,12 +8,12 @@ import { passwordConfirmationMatcher } from '../shared/custom-validators';
 
 
 @Component({
-  selector: 'app-new-employee',
-  templateUrl: './new-employee.component.html',
-  styleUrls: ['./new-employee.component.css']
+  selector: 'app-employee-new',
+  templateUrl: './employee-new.component.html',
+  styleUrls: ['./employee-new.component.css']
 })
 
-export class NewEmployeeComponent implements OnInit {
+export class EmployeeNewComponent implements OnInit {
 
   employeeForm: FormGroup;
 
