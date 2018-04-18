@@ -2,7 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { TreeComponent, ITreeOptions } from 'angular-tree-component';
 import { ProductService } from '../shared/product.service';
-import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
 
 
@@ -26,36 +27,12 @@ export class ProductCategoryComponent implements OnInit {
   nodes = [];
 
   selectedNode;
-  //= [
-  //   {
-  //     id: 1,
-  //     name: 'root1',
-  //     children: [
-  //       { id: 2, name: 'child1' },
-  //       { id: 3, name: 'child2' }
-  //     ]
-  //   },
-  //   {
-  //     id: 4,
-  //     name: 'root2',
-  //     children: [
-  //       { id: 5, name: 'child2.1' },
-  //       {
-  //         id: 6,
-  //         name: 'child2.2',
-  //         children: [
-  //           { id: 7, name: 'subsub' }
-  //         ]
-  //       }
-  //     ]
-  //   }
-  // ];
   options: ITreeOptions = {
     getChildren: this.getCategories.bind(this)
   };
 
   constructor(private productService: ProductService,
-    public snackBar: MatSnackBar,
+    private helperService: HelperService,
     private dialog: MatDialog,
     fb: FormBuilder) {
     this.myForm = fb.group({
@@ -85,10 +62,10 @@ export class ProductCategoryComponent implements OnInit {
           }
           this.tree.treeModel.update();
           console.log(this.selectedNode);
-          this.openSnackBar('The route has been added!');
+          this.helperService.openSnackBar('The route has been added!');
         },
         () => {
-          this.openSnackBar('There is an error! Please try again!');
+          this.helperService.openSnackBar('There is an error! Please try again!');
         });
     } else if (this.action === 'Update') {
       value.id = this.selectedNode.id;
@@ -98,11 +75,11 @@ export class ProductCategoryComponent implements OnInit {
           this.selectedNode.name = value.name;
           this.selectedNode.status = value.status;
           this.tree.treeModel.update();
-          this.openSnackBar('The route has been added!');
+          this.helperService.openSnackBar('The route has been added!');
         },
         (error) => {
           console.log(error);
-          this.openSnackBar('', error);
+          this.helperService.openSnackBar('', error);
         });
     }
   }
@@ -131,8 +108,8 @@ export class ProductCategoryComponent implements OnInit {
                   node.parent.data.hasChildren = false;
                 }
               }
-              this.openSnackBar('The route has been deleted!');
-            }, (error) => { console.log(error); this.openSnackBar('', error); }, () => { }
+              this.helperService.openSnackBar('The route has been deleted!');
+            }, (error) => { console.log(error); this.helperService.openSnackBar('', error); }, () => { }
             );
         }
       });
@@ -149,7 +126,7 @@ export class ProductCategoryComponent implements OnInit {
         });
         this.action = 'Update';
         this.selectedNode = node.data;
-      }, (error) => { this.openSnackBar('', error); }, () => { }
+      }, (error) => { this.helperService.openSnackBar('', error); }, () => { }
       );
   }
 
@@ -172,24 +149,14 @@ export class ProductCategoryComponent implements OnInit {
           this.nodes.push(element);
         });
         this.tree.treeModel.update();
-        this.openSnackBar('The route has been added!');
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       });
   }
 
   getCategories(node: any) {
     return this.productService.getProductCategories(node.data.id).toPromise();
-  }
-
-  openSnackBar(message: string, error?) {
-    if (error) {
-      message = message + ' ' + (error.error.text || error.error || error.message);
-    }
-    this.snackBar.open(message, '', {
-      duration: 3000,
-    });
   }
 
 }

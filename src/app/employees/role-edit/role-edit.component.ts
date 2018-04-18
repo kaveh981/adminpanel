@@ -4,7 +4,7 @@ import {
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
-import { MatSnackBar } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
 
 @Component({
   selector: 'app-role-edit',
@@ -18,7 +18,7 @@ export class RoleEditComponent implements OnInit {
   myForm: FormGroup;
   role: Role;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, private helperService: HelperService) {
     this.myForm = fb.group({
       'role': ['', Validators.required],
       'roleId': []
@@ -47,18 +47,12 @@ export class RoleEditComponent implements OnInit {
     this.employeeService.updateRole(value)
       .subscribe(
       () => {
-        this.openSnackBar('The role has been updated');
+        this.helperService.openSnackBar('The role has been updated');
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
       );
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
   }
 
 }

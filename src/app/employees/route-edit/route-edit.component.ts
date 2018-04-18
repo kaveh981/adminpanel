@@ -4,7 +4,7 @@ import {
   FormGroupDirective, Validators, FormGroup
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
-import { MatSnackBar } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
 
 @Component({
   selector: 'app-route-edit',
@@ -23,7 +23,7 @@ export class RouteEditComponent implements OnInit {
     { key: 'delete', value: 3 }
   ];
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, public snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, private helperService: HelperService) {
     this.myForm = fb.group({
       route: ['', Validators.required],
       method: ['', Validators.required],
@@ -57,18 +57,12 @@ export class RouteEditComponent implements OnInit {
     this.employeeService.updateRoute(value)
       .subscribe(
       () => {
-        this.openSnackBar('The route has been updated');
+        this.helperService.openSnackBar('The route has been updated');
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
       );
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
   }
 
 }

@@ -5,8 +5,10 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
-import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
+
 @Component({
   selector: 'app-employees-roles-new',
   templateUrl: './employees-roles-new.component.html',
@@ -19,7 +21,7 @@ export class EmployeesRolesNewComponent implements OnInit {
   displayedColumns = ['roleId', 'role', 'delete', 'edit'];
 
   constructor(fb: FormBuilder, private employeeService: EmployeeService,
-    public snackBar: MatSnackBar,
+    private helperService: HelperService,
     private dialog: MatDialog,
     public mainMenuTab: MainMenuTabService,
   ) {
@@ -40,7 +42,7 @@ export class EmployeesRolesNewComponent implements OnInit {
         console.log(this.dataSource);
       },
       () => {
-        this.openSnackBar('There is an error loading roles! Please try again!');
+        this.helperService.openSnackBar('There is an error loading roles! Please try again!');
       }
       );
   }
@@ -49,11 +51,11 @@ export class EmployeesRolesNewComponent implements OnInit {
     this.employeeService.postNewRole(value)
       .subscribe(
       () => {
-        this.openSnackBar('The role has been added!');
+        this.helperService.openSnackBar('The role has been added!');
         this.getList();
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
       );
   }
@@ -72,7 +74,7 @@ export class EmployeesRolesNewComponent implements OnInit {
               const newEmployeeArray = this.dataSource.data.filter(role => role.roleId !== id);
               this.dataSource.data = newEmployeeArray;
             }, () => {
-              this.openSnackBar('There is an error! Please try again!');
+              this.helperService.openSnackBar('There is an error! Please try again!');
             });
         }
       });
@@ -89,9 +91,4 @@ export class EmployeesRolesNewComponent implements OnInit {
     });
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
-  }
 }

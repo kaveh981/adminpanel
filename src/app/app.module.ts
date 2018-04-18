@@ -20,13 +20,16 @@ import { TokenInterceptor } from './interceptors/token-interceptor';
 import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { ApiService } from './shared-services/api.service';
 import { AuthService } from './shared-services/auth.service';
+import { HelperService } from './shared-services/helper.service';
+import { TreeComponent } from './shared-components/tree/tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationPopupComponent,
     MainMenuComponent,
-    SignInComponent
+    SignInComponent,
+    TreeComponent
   ],
   entryComponents: [ConfirmationPopupComponent],
 
@@ -47,7 +50,7 @@ import { AuthService } from './shared-services/auth.service';
     MatIconModule
   ],
   providers: [
-    MainMenuTabService, AuthService, ApiService,
+    MainMenuTabService, AuthService, ApiService, HelperService,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
   ],

@@ -6,6 +6,7 @@ import {
 import { MatSnackBar } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
 import { passwordConfirmationMatcher } from '../shared/custom-validators';
+import { HelperService } from '../../shared-services/helper.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class EmployeeAccessEditComponent implements OnInit {
 
   passwordDetails: UpdateEmployeePassword;
 
-  constructor(fb: FormBuilder, public snackBar: MatSnackBar, private employeeService: EmployeeService) {
+  constructor(fb: FormBuilder, private helperService: HelperService, private employeeService: EmployeeService) {
     this.employeeFormEmail = fb.group({
       'email': ['', Validators.compose([Validators.required, Validators.email])],
       'password': ['', Validators.required],
@@ -60,13 +61,13 @@ export class EmployeeAccessEditComponent implements OnInit {
       (response) => {
         console.log(response);
         if (response.success) {
-          this.openSnackBar('The employee has been updated');
+          this.helperService.openSnackBar('The employee has been updated');
         } else {
-          this.openSnackBar(response.message);
+          this.helperService.openSnackBar(response.message);
         }
       }, (error) => {
         console.log(error);
-        this.openSnackBar('There is an error! Please try again! ');
+        this.helperService.openSnackBar('There is an error! Please try again! ');
       }
       );
   }
@@ -77,20 +78,14 @@ export class EmployeeAccessEditComponent implements OnInit {
       .subscribe(
       (response) => {
         if (response.success) {
-          this.openSnackBar('The password has been updated');
+          this.helperService.openSnackBar('The password has been updated');
         } else {
-          this.openSnackBar(response.message);
+          this.helperService.openSnackBar(response.message);
         }
       }, () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
       );
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
   }
 
 }

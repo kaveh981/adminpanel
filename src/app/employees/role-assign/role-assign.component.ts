@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { MatCheckboxModule, MatSnackBar, MatCheckboxChange } from '@angular/material';
+import { MatCheckboxModule, MatCheckboxChange } from '@angular/material';
 import { EmployeeService } from '../shared/employee.service';
-
+import { HelperService } from '../../shared-services/helper.service';
 
 @Component({
   selector: 'app-role-assign',
@@ -12,7 +12,7 @@ export class RoleAssignComponent implements OnInit {
   @Input()
   tabId: string;
   roles: Role[] = [];
-  constructor(private employeeService: EmployeeService, private snackBar: MatSnackBar) { }
+  constructor(private employeeService: EmployeeService, private helperService: HelperService) { }
 
   ngOnInit() {
     this.getRolesForUser();
@@ -22,24 +22,18 @@ export class RoleAssignComponent implements OnInit {
     this.employeeService.addOrRemoveUserRole({ employeeId: this.tabId, roleId: roleId, checked: e.checked }).subscribe(
       (result: ResponseDetails) => {
         if (result.success) {
-          this.openSnackBar(result.message);
+          this.helperService.openSnackBar(result.message);
         }
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
     );
   }
 
   getRolesForUser() {
     this.employeeService.getRolesForUser(this.tabId).subscribe(data => this.roles = data,
-      error => this.openSnackBar('opse! something went wrong loading roles'));
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
+      error => this.helperService.openSnackBar('opse! something went wrong loading roles'));
   }
 
 }

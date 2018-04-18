@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MatSnackBar } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
 
 @Component({
   selector: 'app-employee-edit',
@@ -20,7 +21,7 @@ export class EmployeeEditComponent implements OnInit {
 
   employeeDetails: IEmployee;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService, private snackBar: MatSnackBar) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, private helperService: HelperService) {
     this.employeeForm = fb.group({
       'name': ['', Validators.required],
       'family': ['', Validators.required],
@@ -46,15 +47,11 @@ export class EmployeeEditComponent implements OnInit {
     this.employeeService.updateEmployee(value)
       .subscribe(
       () => {
-        this.openSnackBar('The employee has been updated');
+        this.helperService.openSnackBar('The employee has been updated');
       },
       (error) => {
-        this.openSnackBar('There is an error! Please try again! ' + error.error);
+        this.helperService.openSnackBar('There is an error! Please try again! ' + error.error);
       });
   }
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
-    });
-  }
+
 }

@@ -5,9 +5,10 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
-import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
 import { RoleSearchComponent } from '../role-search/role-search.component';
+import { HelperService } from '../../shared-services/helper.service';
 
 @Component({
   selector: 'app-route-new',
@@ -29,7 +30,7 @@ export class RouteNewComponent implements OnInit {
 
   roleId;
   constructor(fb: FormBuilder, private employeeService: EmployeeService,
-    public snackBar: MatSnackBar,
+    private helperService: HelperService,
     private dialog: MatDialog,
     public mainMenuTab: MainMenuTabService,
   ) {
@@ -50,7 +51,7 @@ export class RouteNewComponent implements OnInit {
         this.dataSource = new MatTableDataSource<Route>(data);
       },
       () => {
-        this.openSnackBar('There is an error loading routes! Please try again!');
+        this.helperService.openSnackBar('There is an error loading routes! Please try again!');
       });
   }
 
@@ -58,11 +59,11 @@ export class RouteNewComponent implements OnInit {
     this.employeeService.postNewRoute(value)
       .subscribe(
       () => {
-        this.openSnackBar('The route has been added!');
+        this.helperService.openSnackBar('The route has been added!');
         this.getList();
       },
       () => {
-        this.openSnackBar('There is an error! Please try again!');
+        this.helperService.openSnackBar('There is an error! Please try again!');
       }
       );
   }
@@ -81,7 +82,7 @@ export class RouteNewComponent implements OnInit {
               const newRoutesArray = this.dataSource.data.filter(route => route.routeId !== id);
               this.dataSource.data = newRoutesArray;
             }, () => {
-              this.openSnackBar('There is an error! Please try again!');
+              this.helperService.openSnackBar('There is an error! Please try again!');
             });
         }
       });
@@ -95,12 +96,6 @@ export class RouteNewComponent implements OnInit {
       mainName: 'route',
       disabled: false,
       removable: true
-    });
-  }
-
-  openSnackBar(message: string) {
-    this.snackBar.open(message, '', {
-      duration: 2000,
     });
   }
 
