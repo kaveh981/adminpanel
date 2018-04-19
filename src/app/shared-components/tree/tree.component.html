@@ -1,0 +1,5 @@
+<tree-root [(ngModel)]="value"  #tree [nodes]="nodes" [options]="options" (focus)="onNodeFocus($event)" ngDefaultControl>
+  <ng-template #treeNodeTemplate let-node let-index="index">
+    <span [class]="node.data.className + 'Index'">{{ node.data.name }}</span>
+  </ng-template>
+</tree-root>
