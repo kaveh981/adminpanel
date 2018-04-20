@@ -21,15 +21,13 @@ import { JwtInterceptor } from './interceptors/jwt-interceptor';
 import { ApiService } from './shared-services/api.service';
 import { AuthService } from './shared-services/auth.service';
 import { HelperService } from './shared-services/helper.service';
-import { TreeComponent } from './shared-components/tree/tree.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ConfirmationPopupComponent,
     MainMenuComponent,
-    SignInComponent,
-    TreeComponent
+    SignInComponent
   ],
   entryComponents: [ConfirmationPopupComponent],
 
