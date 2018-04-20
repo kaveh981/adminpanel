@@ -1,5 +1,13 @@
-<tree-root [(ngModel)]="value"  #tree [nodes]="nodes" [options]="options" (focus)="onNodeFocus($event)" ngDefaultControl>
-  <ng-template #treeNodeTemplate let-node let-index="index">
-    <span [class]="node.data.className + 'Index'">{{ node.data.name }}</span>
-  </ng-template>
-</tree-root>
+<input type="hidden"  name="tree" ng-value="value" />
+<mat-form-field>
+  <mat-select (input)="onChange($event)" (selectionChange)="getCategories($event.value)" placeholder="{{label}}">
+    <mat-option *ngFor="let option of options" [value]="option.id">
+      <mat-icon *ngIf="option.hasChildren">play_arrow</mat-icon> {{ option.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<mat-chip-list (selectionChange)="alert('change')">
+  <mat-chip (click)="chipClick()">Root</mat-chip>
+  <mat-chip (click)="chipClick(option.id)" *ngFor="let option of pathMap">{{ option.name }}</mat-chip>
+</mat-chip-list>

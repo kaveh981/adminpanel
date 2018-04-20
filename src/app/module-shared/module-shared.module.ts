@@ -3,11 +3,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TreeModule } from 'angular-tree-component';
+
 import {
   MatTabsModule,
   MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
   MatSnackBarModule, MatCheckboxModule, MatListModule, MatSelectModule, MatIconModule, MatPaginatorModule,
-  MatSortModule, MatGridListModule
+  MatSortModule, MatGridListModule, MatStepperModule, MatChipsModule
 } from '@angular/material';
 
 @NgModule({
@@ -28,7 +29,9 @@ import {
     MatSelectModule,
     MatIconModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatStepperModule,
+    MatChipsModule
   ],
   entryComponents: [],
 
@@ -36,7 +39,8 @@ import {
 
   declarations: [],
 
-  exports: [CommonModule,
+  exports: [
+    CommonModule,
     MatTabsModule,
     ReactiveFormsModule,
     MatInputModule,
@@ -52,8 +56,10 @@ import {
     MatSelectModule,
     MatIconModule,
     MatPaginatorModule,
-    MatSortModule]
-
+    MatSortModule,
+    MatStepperModule,
+    MatChipsModule
+  ]
 })
 
 export class ModuleSharedModule { }

@@ -1,13 +1,14 @@
 <div>
   <tabset #mainTabs>
-      <tab heading="Employees" *ngIf="authService.hasRole('employees')"
-      (select)="changeTabEvent($event)">
-      <app-employees-menu *ngIf="(tabLabel === 'Employees' || employeesMenuComponent)"></app-employees-menu>
-    </tab>
     <tab heading="Products" *ngIf="authService.hasRole('employees')" 
       (select)="changeTabEvent($event)">
       <app-products-menu *ngIf="(tabLabel === 'Products' || productsMenuComponent)"></app-products-menu>
     </tab>
+      <tab heading="Employees" *ngIf="authService.hasRole('employees')"
+      (select)="changeTabEvent($event)">
+      <app-employees-menu *ngIf="(tabLabel === 'Employees' || employeesMenuComponent)"></app-employees-menu>
+    </tab>
+    
     <tab *ngFor="let tabz of mainMenuTab.tabs"
          [heading]="tabz.title"
          [active]="true"

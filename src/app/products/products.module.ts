@@ -4,13 +4,14 @@ import { ProductsMenuComponent } from './products-menu/products-menu.component';
 import { ProductCategoryComponent } from './product-category/product-category.component';
 import { ProductService } from './shared/product.service';
 import { ProductNewComponent } from './product-new/product-new.component';
+import { TreeComponent } from '../shared-components/tree/tree.component';
 
 @NgModule({
   imports: [
     ModuleSharedModule
   ],
   providers: [ProductService],
-  declarations: [ProductsMenuComponent, ProductCategoryComponent, ProductNewComponent],
+  declarations: [ProductsMenuComponent, ProductCategoryComponent, ProductNewComponent, TreeComponent],
   exports: [ProductsMenuComponent]
 })
 export class ProductsModule { }

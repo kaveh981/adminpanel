@@ -1,53 +1,71 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, forwardRef } from '@angular/core';
 import { HelperService } from '../../shared-services/helper.service';
 import { ProductService } from '../../products/shared/product.service';
 import { TreeComponent as AngularTreeComponent, ITreeOptions } from 'angular-tree-component';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+const customValueProvider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => TreeComponent),
+  multi: true
+};
 
 @Component({
   selector: 'app-tree',
   templateUrl: './tree.component.html',
-  styleUrls: ['./tree.component.css']
+  styleUrls: ['./tree.component.css'],
+  providers: [customValueProvider]
 })
-export class TreeComponent implements OnInit {
+export class TreeComponent implements ControlValueAccessor {
 
+  @Input() label: string;
   @Input() treeName: string;
-  @Output() onFocus = new EventEmitter<any>();
 
   @ViewChild(AngularTreeComponent)
   private tree: AngularTreeComponent;
-  nodes = [];
+  options = [];
+  pathMap = [];
   value = '';
-  options: ITreeOptions = {
-    getChildren: this.getCategories.bind(this)
-  };
-  constructor(private helperService: HelperService, private productService: ProductService) { }
+  name = '';
 
+  propagateChange: any = () => { };
 
-  onNodeFocus(e) {
-    this.onFocus.emit(e);
+  constructor(private helperService: HelperService, private productService: ProductService) { this.getCategories(); }
+
+  writeValue(value: any) {
+    if (value) {
+      this.value = value;
+    }
   }
 
-  ngOnInit() {
-    this.getRoots();
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+  registerOnTouched(fn: () => void): void { }
+
+  onChange(event) {
+    this.propagateChange(event.target.value);
   }
 
-  getRoots() {
-    this.productService.getProductCategories(0)
-      .subscribe(
-      (result) => {
-        this.nodes = [];
-        result.forEach(element => {
-          this.nodes.push(element);
-        });
-        this.tree.treeModel.update();
-      },
-      (error) => {
-        this.helperService.openSnackBar('There is an error! Please try again!', error);
-      });
+  chipClick(value?) {
+    const elementPos = this.pathMap.map(x => x.id).indexOf(value);
+    if (this.pathMap) {
+      this.pathMap.length = elementPos + 1;
+    }
+    this.propagateChange(value);
+    this.getCategories(value);
   }
 
-  getCategories(node: any) {
-    return this.productService.getProductCategories(node.data.id).toPromise();
+  getCategories(value?: any) {
+    const obj = this.options.find(o => o.id === value);
+    if (obj) {
+      this.pathMap.push(obj);
+    }
+    const id = value || 0;
+    this.propagateChange(value);
+    this.productService.getProductCategories(id).subscribe(result => this.options = result
+      , error => this.helperService.openSnackBar('There is an error! Please try again!', error)
+    );
   }
 
 

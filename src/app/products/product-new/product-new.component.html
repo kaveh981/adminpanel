@@ -1,3 +1,13 @@
-<p>
-  new-product works!
-</p>
+<div class="divContainer">
+  <mat-card>
+
+    <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+
+      <app-tree  [label]="'Category'" [formControl]="myForm.controls['category']"></app-tree>
+
+      <button class="employeeContainer p-10" mat-button type="submit" [disabled]="!myForm.valid">Submit</button>
+
+    </form>
+  </mat-card>
+
+</div>
