@@ -5,13 +5,17 @@ import { ProductCategoryComponent } from './product-category/product-category.co
 import { ProductService } from './shared/product.service';
 import { ProductNewComponent } from './product-new/product-new.component';
 import { TreeComponent } from '../shared-components/tree/tree.component';
+import { ProductsListComponent } from './products-list/products-list.component';
+import { ProductEditComponent } from './product-edit/product-edit.component';
+import { ProductMenuComponent } from './product-menu/product-menu.component';
 
 @NgModule({
   imports: [
     ModuleSharedModule
   ],
   providers: [ProductService],
-  declarations: [ProductsMenuComponent, ProductCategoryComponent, ProductNewComponent, TreeComponent],
-  exports: [ProductsMenuComponent]
+  declarations: [ProductsMenuComponent, ProductCategoryComponent, ProductNewComponent, TreeComponent,
+    ProductsListComponent, ProductEditComponent, ProductMenuComponent],
+  exports: [ProductsMenuComponent, ProductMenuComponent]
 })
 export class ProductsModule { }

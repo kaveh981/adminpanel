@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
 import { HelperService } from '../../shared-services/helper.service';
 import { ProductService } from '../../products/shared/product.service';
 import { TreeComponent as AngularTreeComponent, ITreeOptions } from 'angular-tree-component';
@@ -16,10 +16,11 @@ const customValueProvider = {
   styleUrls: ['./tree.component.css'],
   providers: [customValueProvider]
 })
-export class TreeComponent implements ControlValueAccessor {
+export class TreeComponent implements ControlValueAccessor, OnInit, OnChanges {
 
   @Input() label: string;
   @Input() treeName: string;
+  @Input() id: number;
 
   @ViewChild(AngularTreeComponent)
   private tree: AngularTreeComponent;
@@ -30,11 +31,32 @@ export class TreeComponent implements ControlValueAccessor {
 
   propagateChange: any = () => { };
 
-  constructor(private helperService: HelperService, private productService: ProductService) { this.getCategories(); }
+  constructor(private helperService: HelperService, private productService: ProductService) {
+  }
 
   writeValue(value: any) {
     if (value) {
       this.value = value;
+    }
+  }
+
+  bindTreeData() {
+    if (!this.id) {
+      console.log('id need to be binded');
+      return null;
+    } else if (this.id !== 0) {
+      this.setPath();
+      this.getCategories(this.id);
+    } else if (this.id === 0) {
+      this.getCategories();
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    for (const propName in changes) {
+      if (propName === 'id') {
+        this.bindTreeData();
+      }
     }
   }
 
@@ -45,6 +67,15 @@ export class TreeComponent implements ControlValueAccessor {
 
   onChange(event) {
     this.propagateChange(event.target.value);
+  }
+
+  setPath() {
+    this.productService.getParentCategoriesById(this.id).subscribe(result => {
+      console.log(result);
+      this.pathMap = result;
+    }
+      , error => this.helperService.openSnackBar('There is an error! Please try again!', error)
+    );
   }
 
   chipClick(value?) {

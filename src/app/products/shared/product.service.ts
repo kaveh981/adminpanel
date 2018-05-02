@@ -13,6 +13,10 @@ export class ProductService {
     return this.http.get<ProductCategory[]>(`products/category/parent/${parentId}`);
   }
 
+  getParentCategoriesById(id): Observable<any> {
+    return this.http.get<ProductCategory[]>(`products/category/parents/${id}`);
+  }
+
   getProductCategoryById(id?): Observable<any> {
     return this.http.get<ProductCategory[]>(`products/category/${id}`);
   }
@@ -28,5 +32,37 @@ export class ProductService {
   deleteProductCategory(id) {
     return this.http.delete(`products/category/${id}`);
   }
+
+  getProductById(id): Observable<any> {
+    return this.http.get<ProductCategory[]>(`products/${id}`);
+  }
+
+  postProduct(product: Product) {
+    return this.http.post(`products`, product);
+  }
+
+  productList(filter?: ProductFilter): Observable<any[]> {
+    return this.http.get<any[]>(`products`, {
+      params: {
+        sort: filter.pagination.sort,
+        take: filter.pagination.take,
+        skip: filter.pagination.skip,
+        order: filter.pagination.order,
+        name: filter.name,
+        status: filter.status,
+        categoryId: filter.categoryId
+      }
+    });
+  }
+
+  deleteProduct(id) {
+    return this.http.delete(`products/${id}`);
+  }
+
+  updateProduct(product: Product) {
+    console.log(product);
+    return this.http.put(`products`, product);
+  }
+
 
 }

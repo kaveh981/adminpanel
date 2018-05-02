@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductCategoryComponent } from '../product-category/product-category.component';
 import { ProductNewComponent } from '../product-new/product-new.component';
+import { ProductsListComponent } from '../products-list/products-list.component';
 import { AuthService } from '../../shared-services/auth.service';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -16,6 +17,8 @@ export class ProductsMenuComponent implements OnInit {
   productCategoryComponent: ProductCategoryComponent;
   @ViewChild(ProductNewComponent)
   productNewComponent: ProductNewComponent;
+  @ViewChild(ProductsListComponent)
+  productsListComponent: ProductsListComponent;
 
   tabIndex = 0;
   tabLabel = '';

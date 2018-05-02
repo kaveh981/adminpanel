@@ -1,4 +1,10 @@
 <mat-tab-group #subTab (selectedTabChange)="changeTabEvent($event)">
+  <mat-tab *ngIf="authService.hasRole('employeeList')" label="Products">
+    <h1>
+      <app-products-list *ngIf="tabLabel === 'Products' || productsListComponent"></app-products-list>
+    </h1>
+    <p>...</p>
+  </mat-tab>
   <mat-tab *ngIf="authService.hasRole('employeeList')" label="Add Product">
     <h1>
       <app-product-new *ngIf="tabLabel === 'Add Product' || productNewComponent"></app-product-new>

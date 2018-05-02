@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { HelperService } from '../../shared-services/helper.service';
 import { ProductService } from '../shared/product.service';
 
@@ -9,12 +9,15 @@ import {
 import { TreeComponent } from '../../shared-components/tree/tree.component';
 
 @Component({
-  selector: 'app-product-new',
-  templateUrl: './product-new.component.html',
-  styleUrls: ['./product-new.component.css']
+  selector: 'app-product-edit',
+  templateUrl: './product-edit.component.html',
+  styleUrls: ['./product-edit.component.css']
 })
-export class ProductNewComponent {
+export class ProductEditComponent implements OnInit {
 
+  @Input('tabId')
+  tabId: number;
+  categoryId;
   isLinear = false;
   myForm: FormGroup;
   statuses = [
@@ -31,8 +34,28 @@ export class ProductNewComponent {
     this.myForm = fb.group({
       categoryId: ['', Validators.required],
       name: ['', Validators.required],
-      status: ['', Validators.required]
+      status: ['', Validators.required],
+      productId: null
     });
+  }
+
+  ngOnInit() {
+    this.getRecordById(this.tabId);
+  }
+
+
+  getRecordById(tabId) {
+    this.productService.getProductById(tabId)
+      .subscribe(data => {
+        console.log(data);
+        this.categoryId = data.productCategory.id;
+        this.myForm.patchValue({
+          productId: data.productId,
+          categoryId: data.productCategory.id,
+          name: data.name,
+          status: data.status
+        });
+      });
   }
 
   onFocus(e) {
@@ -49,7 +72,7 @@ export class ProductNewComponent {
   }
 
   submitForm(value: any): void {
-    this.productService.postProduct(value)
+    this.productService.updateProduct(value)
       .subscribe(
       (res) => {
         console.log(res);

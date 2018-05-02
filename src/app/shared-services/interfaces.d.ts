@@ -9,3 +9,10 @@ interface Creator {
     name?: string,
     lastName?: string
 }
+
+interface Pagination {
+    skip: number,
+    take: number,
+    order?: "asc" | "desc",
+    sort: string
+}

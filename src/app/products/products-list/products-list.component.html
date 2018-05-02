@@ -1,0 +1,71 @@
+<div class="divContainer">
+  <mat-card>
+    <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+      <mat-form-field class="employeeContainer">
+        <input matInput placeholder="Name" [formControl]="myForm.controls['name']">
+      </mat-form-field>
+      <mat-form-field class="employeeContainer">
+        <mat-select placeholder="Status" [formControl]="myForm.controls['status']">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let status of statuses" [value]="status.value">
+            {{status.key}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <app-tree [label]="'Category'" [formControl]="myForm.controls['categoryId']"></app-tree>
+      <button class="employeeContainer p-10" mat-button type="submit">Search</button>
+    </form>
+  </mat-card>
+  <div class="example-container mat-elevation-z8">
+    <mat-table #table [dataSource]="dataSource" matSort matSortActive="productId" matSortDisableClear matSortDirection="asc">
+
+      <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="productId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.productId}}</mat-cell>
+        <mat-cell></mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="category">
+        <mat-header-cell *matHeaderCellDef> Category </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.category}} </mat-cell>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.status}} </mat-cell>
+      </ng-container>
+
+      <!-- Delete Column-->
+      <ng-container matColumnDef="delete">
+        <mat-header-cell *matHeaderCellDef> Delete</mat-header-cell>
+        <mat-cell *matCellDef="let index">
+          <button mat-button color="warn" (click)="deleteColum(index.productId)">Delete</button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Edit Column -->
+      <ng-container matColumnDef="edit">
+        <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
+        <mat-cell *matCellDef="let index, let element">
+          <button mat-button color="warn" (click)="addNewTab(element)"> Edit </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+    <mat-paginator [length]="resultsLength" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+</div>

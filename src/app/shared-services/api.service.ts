@@ -11,8 +11,8 @@ export class ApiService {
 
     constructor(private http: HttpClient) { }
 
-    public get<T>(route: string): Observable<any> {
-        return this.http.get<T>(`${this.routhEndpoint}/${route}`);
+    public get<T>(route: string, options?): Observable<any> {
+        return this.http.get<T>(`${this.routhEndpoint}/${route}`, options);
     }
 
     public delete<T>(route: string): Observable<any> {

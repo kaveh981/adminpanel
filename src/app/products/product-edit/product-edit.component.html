@@ -1,11 +1,11 @@
 <div class="divContainer">
   <mat-card>
     <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
-      <app-tree [label]="'Category'" [id]="'0'" [formControl]="myForm.controls['categoryId']" required></app-tree>
-      <mat-error *ngIf="myForm.controls['categoryId'].hasError('required') ">
-        Category name is
-        <strong>required</strong>
-      </mat-error>
+      <app-tree [label]="'Category'" [id]="categoryId" [formControl]="myForm.controls['categoryId']" required></app-tree>
+       <mat-error *ngIf="myForm.controls['categoryId'].hasError('required') ">
+          Category name is
+          <strong>required</strong>
+        </mat-error>
       <mat-form-field class="employeeContainer">
         <input matInput placeholder="Name" [formControl]="myForm.controls['name']" required>
         <mat-error *ngIf="myForm.controls['name'].hasError('required') && myForm.controls['name'].touched">
