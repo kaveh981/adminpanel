@@ -1,17 +1,17 @@
 <mat-tab-group #subTab (selectedTabChange)="changeTabEvent($event)">
-  <mat-tab *ngIf="authService.hasRole('employeeList')" label="Products">
+  <mat-tab *ngIf="authService.hasRole('employees')" label="Products">
     <h1>
       <app-products-list *ngIf="tabLabel === 'Products' || productsListComponent"></app-products-list>
     </h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab *ngIf="authService.hasRole('employeeList')" label="Add Product">
+  <mat-tab *ngIf="authService.hasRole('employees')" label="Add Product">
     <h1>
       <app-product-new *ngIf="tabLabel === 'Add Product' || productNewComponent"></app-product-new>
     </h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab *ngIf="authService.hasRole('employeeList')" label="Category">
+  <mat-tab *ngIf="authService.hasRole('employees')" label="Category">
     <h1>
       <app-product-category *ngIf="tabLabel === 'Category' || productCategoryComponent"></app-product-category>
     </h1>

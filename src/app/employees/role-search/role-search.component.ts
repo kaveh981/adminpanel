@@ -1,9 +1,14 @@
-import { Component, OnInit, OnChanges, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import {
+  FormControl, ValidationErrors,
+  FormGroupDirective, NgForm, Validators, ValidatorFn, FormBuilder, AbstractControl, FormGroup
+} from '@angular/forms';
+import { TreeComponent, ITreeOptions } from 'angular-tree-component';
 import { EmployeeService } from '../shared/employee.service';
-import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatPaginator, MatSort } from '@angular/material';
-import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
-import 'rxjs/add/operator/retry';
 import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
+import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatPaginator, MatSort } from '@angular/material';
+import { HelperService } from '../../shared-services/helper.service';
+import { ConfirmationPopupComponent } from '../../shared-components/confirmation-popup/confirmation-popup.component';
 
 @Component({
   selector: 'app-role-search',
@@ -11,34 +16,48 @@ import { MainMenuTabService } from '../../shared-services/main-menu-tab.service'
   styleUrls: ['./role-search.component.css']
 })
 export class RoleSearchComponent implements OnInit {
-  displayedColumns = ['roleId', 'role'];
-  dataSource: MatTableDataSource<Role>;
+  @ViewChild(TreeComponent)
+  private tree: TreeComponent;
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  nodes = [];
 
-  constructor(private employeeService: EmployeeService, public dialogRef: MatDialogRef<RoleSearchComponent>) { }
+  selectedNode;
+  options: ITreeOptions = {
+    getChildren: this.getCategories.bind(this)
+  };
+
+  constructor(private employeeService: EmployeeService,
+    private helperService: HelperService,
+    private dialog: MatDialog,
+    public dialogRef: MatDialogRef<RoleSearchComponent>) {
+  }
+
   ngOnInit() {
-    this.subscribeMethod();
+    this.getRoots();
   }
 
-  click(roleId) {
-    this.dialogRef.close(roleId);
+  onFocus(e) {
+    this.dialogRef.close(e.node.data.id);
   }
 
-  applyFilter(filterValue: string) {
-    filterValue = filterValue.trim(); // Remove whitespace
-    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
-  }
-
-  subscribeMethod() {
-    this.employeeService.getRoles()
-      .subscribe(data => {
-        this.dataSource = new MatTableDataSource<Role>(data);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+  getRoots() {
+    this.employeeService.getNodesByParentId(0)
+      .subscribe(
+      (result) => {
+        this.nodes = [];
+        result.forEach(element => {
+          console.log(element);
+          this.nodes.push(element);
+        });
+        this.tree.treeModel.update();
+      },
+      () => {
+        this.helperService.openSnackBar('There is an error! Please try again!');
       });
+  }
+
+  getCategories(node: any) {
+    return this.employeeService.getNodesByParentId(node.data.id).toPromise();
   }
 }
 

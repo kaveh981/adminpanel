@@ -1,8 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import {
   FormControl, ValidationErrors,
   FormGroupDirective, NgForm, Validators, ValidatorFn, FormBuilder, AbstractControl, FormGroup
 } from '@angular/forms';
+import { TreeComponent, ITreeOptions } from 'angular-tree-component';
 import { EmployeeService } from '../shared/employee.service';
 import { MainMenuTabService } from '../../shared-services/main-menu-tab.service';
 import { MatTableDataSource, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
@@ -16,51 +17,78 @@ import { ConfirmationPopupComponent } from '../../shared-components/confirmation
 })
 export class EmployeesRolesNewComponent implements OnInit {
 
-  myForm: FormGroup;
-  dataSource: MatTableDataSource<Role>;
-  displayedColumns = ['roleId', 'role', 'delete', 'edit'];
+  @ViewChild(TreeComponent)
+  private tree: TreeComponent;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService,
+  myForm: FormGroup;
+  action = 'Add';
+
+  nodes = [];
+
+  selectedNode;
+  options: ITreeOptions = {
+    getChildren: this.getCategories.bind(this)
+  };
+
+  constructor(private employeeService: EmployeeService,
     private helperService: HelperService,
     private dialog: MatDialog,
-    public mainMenuTab: MainMenuTabService,
-  ) {
-
+    fb: FormBuilder) {
     this.myForm = fb.group({
-      'role': ['', Validators.required]
+      name: ['', Validators.required]
     });
   }
 
   ngOnInit() {
-    this.getList();
-  }
-
-  getList() {
-    this.employeeService.getRolesForUser(0)
-      .subscribe(data => {
-        this.dataSource = new MatTableDataSource<Role>(data);
-        console.log(this.dataSource);
-      },
-      () => {
-        this.helperService.openSnackBar('There is an error loading roles! Please try again!');
-      }
-      );
+    this.getRoots();
   }
 
   submitForm(value: any): void {
-    this.employeeService.postNewRole(value)
-      .subscribe(
-      () => {
-        this.helperService.openSnackBar('The role has been added!');
-        this.getList();
-      },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+    if (this.action === 'Add') {
+      if (this.selectedNode) {
+        value.parentId = this.selectedNode.id;
       }
-      );
+      this.employeeService.addNode(value)
+        .subscribe(
+        (node) => {
+          console.log(node);
+          if (this.selectedNode) {
+            this.selectedNode['children'] = this.selectedNode['children'] || [];
+            this.selectedNode['children'].push(node);
+          } else {
+            this.nodes.push(node);
+          }
+          this.tree.treeModel.update();
+          console.log(this.selectedNode);
+          this.helperService.openSnackBar('The route has been added!');
+        },
+        () => {
+          this.helperService.openSnackBar('There is an error! Please try again!');
+        });
+    } else if (this.action === 'Update') {
+      value.id = this.selectedNode.id;
+      this.employeeService.updateNode(value)
+        .subscribe(
+        (node) => {
+          this.selectedNode.name = value.name;
+          this.selectedNode.status = value.status;
+          this.tree.treeModel.update();
+          this.helperService.openSnackBar('The route has been added!');
+        },
+        (error) => {
+          console.log(error);
+          this.helperService.openSnackBar('', error);
+        });
+    }
   }
 
-  deleteRow(id) {
+  onFocus(e) {
+    this.selectedNode = e.node.data;
+    console.log(e.node.data);
+  }
+
+  delete(node) {
+    console.log(node);
     const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
       width: '250px',
       data: { message: 'Are you sure you want to delete this employee?' }
@@ -69,26 +97,63 @@ export class EmployeesRolesNewComponent implements OnInit {
     dialogRef.afterClosed()
       .subscribe(result => {
         if (result) {
-          this.employeeService.deleteRole(id)
+          this.employeeService.deleteNode(node.data.id)
             .subscribe(() => {
-              const newEmployeeArray = this.dataSource.data.filter(role => role.roleId !== id);
-              this.dataSource.data = newEmployeeArray;
-            }, () => {
-              this.helperService.openSnackBar('There is an error! Please try again!');
-            });
+              if (node.parent != null) {
+                node.parent.data.children.splice(node.parent.data.children.indexOf(node.data), 1);
+                this.tree.treeModel.update();
+                if (node.parent.data.children.length === 0) {
+                  node.parent.data.hasChildren = false;
+                }
+              }
+              this.helperService.openSnackBar('The route has been deleted!');
+            }, (error) => { console.log(error); this.helperService.openSnackBar('', error); }, () => { }
+            );
         }
       });
   }
 
-  addNewTab(element): void {
-    this.mainMenuTab.addNewTab({
-      title: element.role,
-      content: `role`,
-      tabId: element.roleId,
-      mainName: 'role',
-      disabled: false,
-      removable: true
-    });
+
+  edit(node) {
+
+    this.employeeService.getNodeById(node.data.id)
+      .subscribe((data) => {
+        this.myForm.patchValue({
+          name: data.name,
+          status: data.status
+        });
+        this.action = 'Update';
+        this.selectedNode = node.data;
+      }, (error) => { this.helperService.openSnackBar('', error); }, () => { }
+      );
   }
 
+  add(node) {
+    this.selectedNode = node.data;
+    this.myForm.patchValue({
+      name: '',
+      status: null
+    });
+    this.action = 'Add';
+  }
+
+  getRoots() {
+    this.employeeService.getNodesByParentId(0)
+      .subscribe(
+      (result) => {
+        this.nodes = [];
+        result.forEach(element => {
+          console.log(element);
+          this.nodes.push(element);
+        });
+        this.tree.treeModel.update();
+      },
+      () => {
+        this.helperService.openSnackBar('There is an error! Please try again!');
+      });
+  }
+
+  getCategories(node: any) {
+    return this.employeeService.getNodesByParentId(node.data.id).toPromise();
+  }
 }

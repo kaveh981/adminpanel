@@ -15,9 +15,10 @@ export class TokenInterceptor implements HttpInterceptor {
                     Authorization: `bearer ${this.auth.getToken()}`
                 }
             });
+            console.log(request);
 
         } else {
-           // this.auth.refreshToken();
+            // this.auth.refreshToken();
         }
         return next.handle(request);
     }

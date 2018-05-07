@@ -1,23 +1,23 @@
 <mat-tab-group #subTab (selectedTabChange)="changeTabEvent($event)">
-  <mat-tab *ngIf="authService.hasRole('addEmployee')" label="New Employee">
+  <mat-tab *ngIf="authService.hasRole('employees')" label="New Employee">
     <h1>
       <app-employee-new *ngIf="(tabLabel === 'New Employee') || employeeNewComponent"></app-employee-new>
     </h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab *ngIf="authService.hasRole('employeeList')"  label="Employees List">
+  <mat-tab *ngIf="authService.hasRole('employees')"  label="Employees List">
     <h1>
       <app-list-employee *ngIf="(tabLabel === 'Employees List') || listEmployeeComponent"></app-list-employee>
     </h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab *ngIf="authService.hasRole('addRole')"  label="Add roles">
+  <mat-tab *ngIf="authService.hasRole('employees')"  label="Add roles">
     <h1>
       <app-employees-roles-new *ngIf="(tabLabel === 'Add roles') || employeesRolesNewComponent"></app-employees-roles-new>
     </h1>
     <p>...</p>
   </mat-tab>
-   <mat-tab *ngIf="authService.hasRole('addRoute')"  label="Add routes">
+   <mat-tab *ngIf="authService.hasRole('employees')"  label="Add routes">
     <h1>
       <app-route-new *ngIf="(tabLabel === 'Add routes') || routeNewComponent"></app-route-new>
     </h1>

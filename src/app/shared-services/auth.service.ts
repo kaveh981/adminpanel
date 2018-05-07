@@ -52,11 +52,12 @@ export class AuthService {
     }
 
     addRoles() {
-        const token = localStorage.getItem('token');
-        this.roles = this.jwtHelper.decodeToken(token).roles;
+        const roles = localStorage.getItem('roles');
+        this.roles = roles.split(',');
     }
 
-    addTokens(accessToken: string, refreshToken?: string) {
+    addTokens(accessToken: string, roles: string, refreshToken?: string) {
+        localStorage.setItem('roles', roles);
         localStorage.setItem('token', accessToken);
         if (refreshToken) {
             localStorage.setItem('refreshToken', refreshToken);

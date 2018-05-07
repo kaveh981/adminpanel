@@ -32,8 +32,9 @@ export class SignInComponent implements OnInit {
   signInInput(value: any) {
     this.authService.login({ username: value.email, password: value.password })
       .subscribe(authReturn => {
+        console.log(authReturn);
         console.log(authReturn.token);
-        this.authService.addTokens(authReturn.token.accessToken, authReturn.token.refreshToken);
+        this.authService.addTokens(authReturn.token.accessToken, authReturn.user.roles, authReturn.token.refreshToken);
         this.authService.addRoles();
         this.onLogin.emit(true);
       }, error => { console.log(error); this.onLogin.emit(false); });

@@ -1,5 +1,21 @@
-<mat-card>
-  <mat-list *ngFor="let role of roles" role="list">
-    <mat-checkbox [checked]="role.checked" [value]="role.roleId" (change)="checkChange($event,role.roleId)">{{role.role}}</mat-checkbox>
-  </mat-list>
-</mat-card>
+<div class="divContainer">
+  <mat-card>
+    <div id="container">
+      <div id="tree">
+        <tree-root #tree [nodes]="nodes" [options]="options" >
+          <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+            <div class="tree-node">
+              <mat-checkbox [checked]="node.data.checked" [value]="node.data.id" (change)="checkChange($event,node.data.id)"></mat-checkbox>
+              <tree-node-expander [node]="node"></tree-node-expander>
+              <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive" [class.node-content-wrapper-focused]="node.isFocused"
+                (click)="node.toggleActivated(true)">
+                <span [class]="node.data.className" [class.title]="true">{{ node.data.name }}</span>
+              </div>
+              <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+            </div>
+          </ng-template>
+        </tree-root>
+      </div>
+    </div>
+  </mat-card>
+</div>

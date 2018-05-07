@@ -1,55 +1,34 @@
 <div class="divContainer">
   <mat-card>
-    <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
-      <mat-form-field class="employeeContainer">
-        <input matInput placeholder="Role Name" [formControl]="myForm.controls['role']">
-        <mat-error *ngIf="myForm.controls['role'].hasError('required') && myForm.controls['role'].touched">
-          Role Name is
-          <strong>required</strong>
-        </mat-error>
-      </mat-form-field>
-
-      <button mat-button type="submit" [disabled]="!myForm.valid">Submit</button>
-    </form>
+    <div id="container">
+      <div id="treeForm">
+        <form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+          <mat-form-field class="employeeContainer">
+            <input matInput placeholder="Role" [formControl]="myForm.controls['name']">
+            <mat-error *ngIf="myForm.controls['name'].hasError('required') && myForm.controls['name'].touched">
+              Role is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+          <button mat-button type="submit" [disabled]="!myForm.valid">{{action}}</button>
+        </form>
+      </div>
+      <div id="tree">
+        <tree-root #tree [nodes]="nodes" [options]="options" (focus)="onFocus($event)">
+          <ng-template #treeNodeTemplate let-node let-index="index">
+            <span [class]="node.data.className + 'Index'">{{ node.data.name }}</span>
+            <button mat-icon-button>
+    <mat-icon aria-label="Delete" (click)="delete(node)">delete</mat-icon>
+  </button>
+            <button mat-icon-button>
+    <mat-icon aria-label="Add" (click)="add(node)">add</mat-icon>
+  </button>
+            <button mat-icon-button>
+    <mat-icon aria-label="Edit" (click)="edit(node)">edit</mat-icon>
+  </button>
+          </ng-template>
+        </tree-root>
+      </div>
+    </div>
   </mat-card>
-</div>
-
-<div class="example-container mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="roleId">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.roleId}}</mat-cell>
-      <mat-cell></mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="role">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.role}} </mat-cell>
-    </ng-container>
-
-    <!-- Delete Column-->
-    <ng-container matColumnDef="delete">
-      <mat-header-cell *matHeaderCellDef> Delete</mat-header-cell>
-      <mat-cell *matCellDef="let index">
-        <button mat-button color="warn" (click)="deleteRow(index.roleId)">Delete</button>
-      </mat-cell>
-    </ng-container>
-
-    <!-- Edit Column -->
-    <ng-container matColumnDef="edit">
-      <mat-header-cell *matHeaderCellDef> Edit </mat-header-cell>
-      <mat-cell *matCellDef="let index, let element">
-        <button mat-button color="warn" (click)="addNewTab(element)"> Edit </button>
-      </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
 </div>

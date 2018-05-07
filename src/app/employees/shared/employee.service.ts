@@ -93,4 +93,32 @@ export class EmployeeService {
       route);
   }
 
+  getNodesByParentId(parentId): Observable<any> {
+    return this.http.get<ProductCategory[]>(`roles/parent/${parentId}`);
+  }
+
+  getNodesByParentIdForEmployee(parent): Observable<any> {
+    return this.http.get<ProductCategory[]>(`roles/parent/${parent.parentId}/employee/${parent.employeeId}`);
+  }
+
+  getParentNodesById(id): Observable<any> {
+    return this.http.get<ProductCategory[]>(`roles/parents/${id}`);
+  }
+
+  getNodeById(id?): Observable<any> {
+    return this.http.get<ProductCategory[]>(`roles/${id}`);
+  }
+
+  addNode(productCategory: ProductCategory) {
+    return this.http.post(`roles`, productCategory);
+  }
+
+  updateNode(productCategory: ProductCategory) {
+    return this.http.put(`roles`, productCategory);
+  }
+
+  deleteNode(id) {
+    return this.http.delete(`roles/${id}`);
+  }
+
 }

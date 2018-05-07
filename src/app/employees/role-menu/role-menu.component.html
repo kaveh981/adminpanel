@@ -1,5 +1,5 @@
 <mat-tab-group #subTab (selectedTabChange)="changeTabEvent($event)">
-  <mat-tab *ngIf="authService.hasRole('editRole')" label="Edit Role">
+  <mat-tab *ngIf="authService.hasRole('employees')" label="Edit Role">
     <app-role-edit *ngIf="(tabLabel === 'Edit Role') || (roleEditComponent)" [tabId]="tabId"></app-role-edit>
   </mat-tab>
 </mat-tab-group>
