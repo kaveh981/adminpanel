@@ -38,8 +38,8 @@ export class RoleAssignComponent implements OnInit {
           this.helperService.openSnackBar(result.message);
         }
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
     );
   }
@@ -55,8 +55,8 @@ export class RoleAssignComponent implements OnInit {
         });
         this.tree.treeModel.update();
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       });
   }
 

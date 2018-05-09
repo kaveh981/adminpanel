@@ -64,8 +64,8 @@ export class RouteEditComponent implements OnInit {
       () => {
         this.helperService.openSnackBar('The route has been updated');
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }

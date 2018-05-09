@@ -62,8 +62,8 @@ export class EmployeesRolesNewComponent implements OnInit {
           console.log(this.selectedNode);
           this.helperService.openSnackBar('The route has been added!');
         },
-        () => {
-          this.helperService.openSnackBar('There is an error! Please try again!');
+        (error) => {
+          this.helperService.openSnackBar('There is an error! Please try again!', error);
         });
     } else if (this.action === 'Update') {
       value.id = this.selectedNode.id;
@@ -76,7 +76,6 @@ export class EmployeesRolesNewComponent implements OnInit {
           this.helperService.openSnackBar('The route has been added!');
         },
         (error) => {
-          console.log(error);
           this.helperService.openSnackBar('', error);
         });
     }
@@ -148,8 +147,8 @@ export class EmployeesRolesNewComponent implements OnInit {
         });
         this.tree.treeModel.update();
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       });
   }
 

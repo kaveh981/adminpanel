@@ -6,6 +6,7 @@ export class HelperService {
 
   constructor(private snackBar: MatSnackBar) { }
   openSnackBar(message: string, error?) {
+    console.log(error);
     if (error) {
       message = message + ' ' + (error.error.text || error.error || error.message);
     }

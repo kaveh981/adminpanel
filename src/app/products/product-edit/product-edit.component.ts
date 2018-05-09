@@ -78,8 +78,8 @@ export class ProductEditComponent implements OnInit {
         console.log(res);
         this.helperService.openSnackBar('The route has been added!');
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }

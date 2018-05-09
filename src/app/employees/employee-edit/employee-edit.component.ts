@@ -50,7 +50,7 @@ export class EmployeeEditComponent implements OnInit {
         this.helperService.openSnackBar('The employee has been updated');
       },
       (error) => {
-        this.helperService.openSnackBar('There is an error! Please try again! ' + error.error);
+        this.helperService.openSnackBar('There is an error! Please try again! ', error);
       });
   }
 

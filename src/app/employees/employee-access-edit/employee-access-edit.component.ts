@@ -66,8 +66,7 @@ export class EmployeeAccessEditComponent implements OnInit {
           this.helperService.openSnackBar(response.message);
         }
       }, (error) => {
-        console.log(error);
-        this.helperService.openSnackBar('There is an error! Please try again! ');
+        this.helperService.openSnackBar('There is an error! Please try again! ', error);
       }
       );
   }
@@ -82,8 +81,8 @@ export class EmployeeAccessEditComponent implements OnInit {
         } else {
           this.helperService.openSnackBar(response.message);
         }
-      }, () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      }, (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }

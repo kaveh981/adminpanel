@@ -52,11 +52,10 @@ export class ProductNewComponent {
     this.productService.postProduct(value)
       .subscribe(
       (res) => {
-        console.log(res);
         this.helperService.openSnackBar('The route has been added!');
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }

@@ -5,6 +5,7 @@ import {
 } from '@angular/forms';
 import { EmployeeService } from '../shared/employee.service';
 import { passwordConfirmationMatcher } from '../shared/custom-validators';
+import { HelperService } from '../../shared-services/helper.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class EmployeeNewComponent implements OnInit {
 
   employeeForm: FormGroup;
 
-  constructor(fb: FormBuilder, private employeeService: EmployeeService) {
+  constructor(fb: FormBuilder, private employeeService: EmployeeService, private helperService: HelperService) {
 
     this.employeeForm = fb.group({
       'name': ['', Validators.required],
@@ -36,7 +37,13 @@ export class EmployeeNewComponent implements OnInit {
 
   submitForm(value: any): void {
     this.employeeService.postEmployee({ name: value.name, family: value.family, email: value.email, password: value.passwords.password })
-      .subscribe(data => { alert('added'); });
+      .subscribe(
+      () => {
+        this.helperService.openSnackBar('The employee has been updated');
+      },
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again! ' , error);
+      });
   }
 
 }

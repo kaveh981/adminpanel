@@ -50,8 +50,8 @@ export class RouteNewComponent implements OnInit {
       .subscribe(data => {
         this.dataSource = new MatTableDataSource<Route>(data);
       },
-      () => {
-        this.helperService.openSnackBar('There is an error loading routes! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error loading routes! Please try again!', error);
       });
   }
 
@@ -62,8 +62,8 @@ export class RouteNewComponent implements OnInit {
         this.helperService.openSnackBar('The route has been added!');
         this.getList();
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }
@@ -81,8 +81,8 @@ export class RouteNewComponent implements OnInit {
             .subscribe(() => {
               const newRoutesArray = this.dataSource.data.filter(route => route.routeId !== id);
               this.dataSource.data = newRoutesArray;
-            }, () => {
-              this.helperService.openSnackBar('There is an error! Please try again!');
+            }, (error) => {
+              this.helperService.openSnackBar('There is an error! Please try again!', error);
             });
         }
       });

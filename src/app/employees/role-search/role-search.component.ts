@@ -51,8 +51,8 @@ export class RoleSearchComponent implements OnInit {
         });
         this.tree.treeModel.update();
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       });
   }
 

@@ -49,8 +49,8 @@ export class RoleEditComponent implements OnInit {
       () => {
         this.helperService.openSnackBar('The role has been updated');
       },
-      () => {
-        this.helperService.openSnackBar('There is an error! Please try again!');
+      (error) => {
+        this.helperService.openSnackBar('There is an error! Please try again!', error);
       }
       );
   }
